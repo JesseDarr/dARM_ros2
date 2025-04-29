@@ -10,7 +10,7 @@ from ament_index_python.packages import get_package_share_directory
 def generate_launch_description():
 
     # Specify the name of the package and path to xacro file within the package
-    pkg_name = 'darm'
+    pkg_name = 'darm_ros2'
     file_subpath = 'urdf/darm.urdf.xacro'
 
     # Use xacro to process the file
@@ -19,33 +19,33 @@ def generate_launch_description():
 
     # Configure robot state publisher node
     node_robot_state_publisher = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        output='screen',
-        parameters=[{'robot_description': robot_description_raw,
+        package = 'robot_state_publisher',
+        executable = 'robot_state_publisher',
+        output = 'screen',
+        parameters = [{'robot_description': robot_description_raw,
         'use_sim_time': True}]
     )
 
     # Configure initial state node
     node_darm_initial_state = Node(
-        package='darm',
-        executable='set_initial_joint_states.py',
-        output='screen'
+        package = 'darm_ros2',
+        executable = 'set_initial_joint_states.py',
+        output = 'screen'
     )
 
     # Configure gazebo
     set_gazebo_model_path = SetEnvironmentVariable(
-        name='GAZEBO_MODEL_PATH',
-        value=os.path.join(get_package_share_directory(pkg_name), 'meshes')
+        name = 'GAZEBO_MODEL_PATH',
+        value = os.path.join(get_package_share_directory(pkg_name), 'meshes')
     )
 
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('gazebo_ros'), 'launch'), '/gazebo.launch.py']),
+            get_package_share_directory('ros_gz_sim'), 'launch'), '/gazebo.launch.py']),
         )
 
-    spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
-                    arguments=['-topic', 'robot_description', '-entity', 'darm'],
+    spawn_entity = Node(package='ros_gz_sim', executable='spawn_entity.py',
+                    arguments=['-topic', 'robot_description', '-entity', 'darm_ros2'],
                     output='screen')
 
     # Run the nodes

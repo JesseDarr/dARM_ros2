@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(darm)
+project(darm_ros2)
 
 find_package(ament_cmake REQUIRED)
 

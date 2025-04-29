@@ -1,9 +1,9 @@
 <?xml version="1.0" ?>
-<robot name="darm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="darm_ros2" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-<xacro:include filename="$(find darm)/urdf/materials.xacro" />
-<xacro:include filename="$(find darm)/urdf/darm.trans" />
-<xacro:include filename="$(find darm)/urdf/gazebo.xacro" />
+<xacro:include filename="$(find darm_ros2)/urdf/materials.xacro" />
+<xacro:include filename="$(find darm_ros2)/urdf/darm.trans" />
+<xacro:include filename="$(find darm_ros2)/urdf/gazebo.xacro" />
 
     <!-- LINKS -->
 	<link name="world" />
@@ -17,14 +17,14 @@
         <visual name="base_link_visual">
             <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
             <geometry>
-                <mesh filename="package://darm/meshes/base_link.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/base_link.stl" scale="0.001 0.001 0.001" />
             </geometry>
             <material name="orange"/>
         </visual>
         <collision name="base_link_collision">
             <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
             <geometry>
-                <mesh filename="package://darm/meshes/base_link.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/base_link.stl" scale="0.001 0.001 0.001" />
             </geometry>
         </collision>
     </link>
@@ -38,14 +38,14 @@
         <visual name="joint_1_visual">
             <origin xyz="-4.440892098500626e-18 0.14444 -5.813068857654297e-17" rpy="-3.141592653589793 -5.208712097802611e-32 1.5375327027985792e-47" />
             <geometry>
-                <mesh filename="package://darm/meshes/joint_1.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/joint_1.stl" scale="0.001 0.001 0.001" />
             </geometry>
             <material name="orange"/>
         </visual>
         <collision name="joint_1_collision">
             <origin xyz="-4.440892098500626e-18 0.14444 -5.813068857654297e-17" rpy="-3.141592653589793 -5.208712097802611e-32 1.5375327027985792e-47" />
             <geometry>
-                <mesh filename="package://darm/meshes/joint_1.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/joint_1.stl" scale="0.001 0.001 0.001" />
             </geometry>
         </collision>
     </link>
@@ -59,14 +59,14 @@
         <visual name="joint_2_visual">
             <origin xyz="-0.21544000000000002 7.20682744733199e-18 0.030999999999999996" rpy="-1.5707963267948961 -1.5707963267948963 0" />
             <geometry>
-                <mesh filename="package://darm/meshes/joint_2.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/joint_2.stl" scale="0.001 0.001 0.001" />
             </geometry>
             <material name="orange"/>
         </visual>
         <collision name="joint_2_collision">
             <origin xyz="-0.21544000000000002 7.20682744733199e-18 0.030999999999999996" rpy="-1.5707963267948961 -1.5707963267948963 0" />
             <geometry>
-                <mesh filename="package://darm/meshes/joint_2.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/joint_2.stl" scale="0.001 0.001 0.001" />
             </geometry>
         </collision>
     </link>
@@ -80,14 +80,14 @@
         <visual name="joint_3_visual">
             <origin xyz="-4.440892098489952e-18 0.40708 1.7965596314673336e-14" rpy="-3.1415926535897487 -5.208712097802611e-32 -2.304339986547433e-45" />
             <geometry>
-                <mesh filename="package://darm/meshes/joint_3.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/joint_3.stl" scale="0.001 0.001 0.001" />
             </geometry>
             <material name="orange"/>
         </visual>
         <collision name="joint_3_collision">
             <origin xyz="-4.440892098489952e-18 0.40708 1.7965596314673336e-14" rpy="-3.1415926535897487 -5.208712097802611e-32 -2.304339986547433e-45" />
             <geometry>
-                <mesh filename="package://darm/meshes/joint_3.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/joint_3.stl" scale="0.001 0.001 0.001" />
             </geometry>
         </collision>
     </link>
@@ -101,14 +101,14 @@
         <visual name="forearm_visual">
             <origin xyz="-0.47208 1.0103368337348527e-18 -0.036399999999999995" rpy="1.570796326794897 1.5707963267948961 0" />
             <geometry>
-                <mesh filename="package://darm/meshes/forearm.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/forearm.stl" scale="0.001 0.001 0.001" />
             </geometry>
             <material name="orange"/>
         </visual>
         <collision name="forearm_collision">
             <origin xyz="-0.47208 1.0103368337348527e-18 -0.036399999999999995" rpy="1.570796326794897 1.5707963267948961 0" />
             <geometry>
-                <mesh filename="package://darm/meshes/forearm.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/forearm.stl" scale="0.001 0.001 0.001" />
             </geometry>
         </collision>
     </link>
@@ -122,14 +122,14 @@
         <visual name="differential_visual">
             <origin xyz="-0.8099010000000003 3.527298460556203e-15 0.05277588" rpy="1.570796326794897 1.5707963267948297 0" />
             <geometry>
-                <mesh filename="package://darm/meshes/differential.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/differential.stl" scale="0.001 0.001 0.001" />
             </geometry>
             <material name="orange"/>
         </visual>
         <collision name="differential_collision">
             <origin xyz="-0.8099010000000003 3.527298460556203e-15 0.05277588" rpy="1.570796326794897 1.5707963267948297 0" />
             <geometry>
-                <mesh filename="package://darm/meshes/differential.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/differential.stl" scale="0.001 0.001 0.001" />
             </geometry>
         </collision>
     </link>
@@ -143,14 +143,14 @@
         <visual name="gripper_visual">
             <origin xyz="-4.440892094647803e-18 -0.831601 -5.401531106258501e-14" rpy="6.536973199318745e-14 5.208712097802611e-32 3.3888229575898595e-45" />
             <geometry>
-                <mesh filename="package://darm/meshes/gripper.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/gripper.stl" scale="0.001 0.001 0.001" />
             </geometry>
             <material name="orange"/>
         </visual>
         <collision name="gripper_collision">
             <origin xyz="-4.440892094647803e-18 -0.831601 -5.401531106258501e-14" rpy="6.536973199318745e-14 5.208712097802611e-32 3.3888229575898595e-45" />
             <geometry>
-                <mesh filename="package://darm/meshes/gripper.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/gripper.stl" scale="0.001 0.001 0.001" />
             </geometry>
         </collision>
     </link>
@@ -164,14 +164,14 @@
         <visual name="finger_1_visual">
             <origin xyz="-0.9165647460883233 -0.003503477953506661 -0.02500002288399092" rpy="-1.5707925322419267 -1.570796301827784 0" />
             <geometry>
-                <mesh filename="package://darm/meshes/finger_1.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/finger_1.stl" scale="0.001 0.001 0.001" />
             </geometry>
             <material name="rubber"/>
         </visual>
         <collision name="finger_1_collision">
             <origin xyz="-0.9165647460883233 -0.003503477953506661 -0.02500002288399092" rpy="-1.5707925322419267 -1.570796301827784 0" />
             <geometry>
-                <mesh filename="package://darm/meshes/finger_1.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/finger_1.stl" scale="0.001 0.001 0.001" />
             </geometry>
         </collision>
     </link>
@@ -185,14 +185,14 @@
         <visual name="finger_2_visual">
             <origin xyz="-0.9165647738985482 -0.0034965220464385043 -0.024999977120956935" rpy="1.5708001213478664 1.5707963018277513 0" />
             <geometry>
-                <mesh filename="package://darm/meshes/finger_2.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/finger_2.stl" scale="0.001 0.001 0.001" />
             </geometry>
             <material name="rubber"/>
         </visual>
         <collision name="finger_2_collision">
             <origin xyz="-0.9165647738985482 -0.0034965220464385043 -0.024999977120956935" rpy="1.5708001213478664 1.5707963018277513 0" />
             <geometry>
-                <mesh filename="package://darm/meshes/finger_2.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/finger_2.stl" scale="0.001 0.001 0.001" />
             </geometry>
         </collision>
     </link>
@@ -206,14 +206,14 @@
         <visual name="dock_visual">
             <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
             <geometry>
-                <mesh filename="package://darm/meshes/dock.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/dock.stl" scale="0.001 0.001 0.001" />
             </geometry>
             <material name="rubber"/>
         </visual>
         <collision name="dock_collision">
             <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
             <geometry>
-                <mesh filename="package://darm/meshes/dock.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="package://darm_ros2/meshes/dock.stl" scale="0.001 0.001 0.001" />
             </geometry>
         </collision>
     </link>
