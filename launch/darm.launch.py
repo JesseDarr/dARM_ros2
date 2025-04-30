@@ -30,20 +30,8 @@ def generate_launch_description():
         output = 'screen'
     )
 
-    # Configure joint state publisher ui - this is needed in Jazzy to maintain joint transforms for now at least
-    joint_state_publisher_ui = ExecuteProcess( 
-        cmd=[
-            'ros2', 'run',
-            'joint_state_publisher_gui',
-            'joint_state_publisher_gui'
-        ],
-        shell=False,
-        output='screen'
-    )
-
     # Run the node
     return LaunchDescription([
         node_robot_state_publisher,
-        joint_state_publisher_ui,
         node_darm_initial_state
     ])
