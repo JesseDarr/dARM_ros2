@@ -3,7 +3,7 @@ project(darm_ros2)
 
 find_package(ament_cmake REQUIRED)
 
-install(DIRECTORY launch meshes urdf
+install(DIRECTORY launch meshes description worlds
   DESTINATION share/${PROJECT_NAME}
 )
 

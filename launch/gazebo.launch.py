@@ -9,47 +9,53 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
 
-    # Specify the name of the package and path to xacro file within the package
-    pkg_name = 'darm_ros2'
-    file_subpath = 'urdf/darm.urdf.xacro'
-
-    # Use xacro to process the file
-    xacro_file = os.path.join(get_package_share_directory(pkg_name),file_subpath)
-    robot_description_raw = xacro.process_file(xacro_file).toxml()
+    # Setup convience variables
+    pkg_name   = 'darm_ros2'
+    sim_name   = 'ros_gz_sim'    
+    sim_path   = os.path.join(get_package_share_directory(sim_name), 'launch', 'gz_sim.launch.py')
+    world_path = os.path.join(get_package_share_directory(pkg_name), 'worlds', 'basic.sdf')
+    model_path = os.path.join(get_package_share_directory(pkg_name), 'meshes')
+    xacro_file = os.path.join(get_package_share_directory(pkg_name), 'urdf/darm.urdf.xacro')
+    robot_desc = xacro.process_file(xacro_file).toxml()
 
     # Configure robot state publisher node
     node_robot_state_publisher = Node(
-        package = 'robot_state_publisher',
+        package    = 'robot_state_publisher',
         executable = 'robot_state_publisher',
-        output = 'screen',
-        parameters = [{'robot_description': robot_description_raw,
-        'use_sim_time': True}]
+        output     = 'screen',
+        parameters = [{'robot_description':  robot_desc, 'use_sim_time': True}]
     )
 
     # Configure initial state node
     node_darm_initial_state = Node(
-        package = 'darm_ros2',
+        package    = pkg_name,
         executable = 'set_initial_joint_states.py',
-        output = 'screen'
+        output     = 'screen'
     )
 
     # Configure gazebo
     set_gazebo_model_path = SetEnvironmentVariable(
-        name = 'GAZEBO_MODEL_PATH',
-        value = os.path.join(get_package_share_directory(pkg_name), 'meshes')
+        name  = 'GAZEBO_MODEL_PATH',
+        value = model_path
     )
 
     gazebo = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('ros_gz_sim'), 'launch'), '/gazebo.launch.py']),
-        )
+        PythonLaunchDescriptionSource(sim_path),
+        launch_arguments = {'gz_args': f'-r -v4 {world_path}', 'on_exit_shutdown': 'true'}.items()
+    )
 
-    spawn_entity = Node(package='ros_gz_sim', executable='spawn_entity.py',
-                    arguments=['-topic', 'robot_description', '-entity', 'darm_ros2'],
-                    output='screen')
+    spawn_entity = Node(
+        package    = 'ros_gz_sim',
+        executable = 'create',
+        arguments  = ['-world', 'basic',
+                      '-topic', 'robot_description',
+                      '-name',  pkg_name],
+        output     = 'screen'
+    )
 
     # Run the nodes
     return LaunchDescription([
+        set_gazebo_model_path,
         gazebo,
         node_robot_state_publisher,
         node_darm_initial_state,
