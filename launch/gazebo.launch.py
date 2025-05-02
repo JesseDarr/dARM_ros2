@@ -15,7 +15,7 @@ def generate_launch_description():
     sim_path   = os.path.join(get_package_share_directory(sim_name), 'launch', 'gz_sim.launch.py')
     world_path = os.path.join(get_package_share_directory(pkg_name), 'worlds', 'basic.sdf')
     model_path = os.path.join(get_package_share_directory(pkg_name), 'meshes')
-    xacro_file = os.path.join(get_package_share_directory(pkg_name), 'urdf/darm.urdf.xacro')
+    xacro_file = os.path.join(get_package_share_directory(pkg_name), 'description/darm.urdf.xacro')
     robot_desc = xacro.process_file(xacro_file).toxml()
 
     # Configure robot state publisher node
