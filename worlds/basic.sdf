@@ -1,0 +1,48 @@
+<?xml version = "1.0" ?>
+<sdf version = "1.8">
+    <world name = "basic">
+
+        <!-- Ground Plane -->
+        <model name = "ground_plane">
+        <static>true</static>
+        <link name = "link">
+            <collision name = "collision">
+            <geometry>
+                <plane>
+                <normal>0 0 1</normal>
+                <size>100 100</size>
+                </plane>
+            </geometry>
+            </collision>
+            <visual name = "visual">
+            <geometry>
+                <plane>
+                <normal>0 0 1</normal>
+                <size>100 100</size>
+                </plane>
+            </geometry>
+            <material>
+                <ambient>0.7 0.7 0.7 1.0</ambient>
+                <diffuse>0.7 0.7 0.7 1.0</diffuse>
+            </material>
+            </visual>
+        </link>
+        </model>
+
+        <!-- Sun -->
+        <light name = "sun" type = "directional">
+            <pose>0 0 10 0 0 0</pose>
+            <cast_shadows>true</cast_shadows>
+            <diffuse>0.8 0.8 0.8 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+            <attenuation>
+                <range>1000</range>
+                <constant>0.9</constant>
+                <linear>0.01</linear>
+                <quadratic>0.001</quadratic>
+            </attenuation>
+            <direction>-0.6124 -0.6124 -0.5</direction>
+        </light>
+
+    </world>
+</sdf>

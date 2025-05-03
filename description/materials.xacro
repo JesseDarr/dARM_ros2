@@ -1,0 +1,11 @@
+<robot name="darm" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <material name="orange">
+        <color rgba="1.0 0.329 0.0 1.0"/>
+    </material>
+
+    <material name="rubber">
+        <color rgba="0.2667 0.2627 0.2627 1.0"/>
+    </material>
+
+</robot>
