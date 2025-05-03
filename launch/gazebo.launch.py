@@ -19,7 +19,7 @@ def generate_launch_description():
     robot_desc = xacro.process_file(xacro_file).toxml()
 
     # Configure robot state publisher node
-    node_robot_state_publisher = Node(
+    robot_state_publisher = Node(
         package    = 'robot_state_publisher',
         executable = 'robot_state_publisher',
         output     = 'screen',
@@ -27,7 +27,7 @@ def generate_launch_description():
     )
 
     # Configure initial state node
-    node_darm_initial_state = Node(
+    darm_initial_state = Node(
         package    = pkg_name,
         executable = 'set_initial_joint_states.py',
         output     = 'screen'
@@ -53,11 +53,26 @@ def generate_launch_description():
         output     = 'screen'
     )
 
+    bridge = Node(
+        package    = 'ros_gz_bridge',
+        executable = 'parameter_bridge',
+        output     = 'screen',
+        arguments  = [
+            '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
+            '/world/basic/model/darm_ros2/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model',
+        ],
+        remappings = [
+            ('/world/basic/model/darm_ros2/joint_state', '/joint_states'),
+        ]
+    )
+    
     # Run the nodes
     return LaunchDescription([
         set_gazebo_model_path,
         gazebo,
-        node_robot_state_publisher,
-        node_darm_initial_state,
-        spawn_entity
-    ])
+        robot_state_publisher,
+        darm_initial_state,
+        spawn_entity,
+        bridge
+    ]
+)

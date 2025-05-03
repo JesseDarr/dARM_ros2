@@ -3,7 +3,7 @@ project(darm_ros2)
 
 find_package(ament_cmake REQUIRED)
 
-install(DIRECTORY launch meshes description worlds
+install(DIRECTORY description launch meshes worlds
   DESTINATION share/${PROJECT_NAME}
 )
 
