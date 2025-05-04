@@ -230,6 +230,7 @@
         <child link="joint_1" />
         <axis xyz="-2.3262389236353407e-63 -1.0 4.02455846426619e-16" />
         <limit lower="${-pi}" upper="${pi}" effort="20" velocity="2" />
+        <dynamics friction="0.2" />
     </joint>
 
     <joint name="joint_2_joint" type="revolute">
@@ -238,6 +239,7 @@
         <child link="joint_2" />
         <axis xyz="-3.730750440443123e-48 2.324793976983833e-16 1.0" />
         <limit lower="${-113 * pi / 180}" upper="${113 * pi / 180}" effort="40" velocity="2" />
+        <dynamics friction="0.2" />
     </joint>
 
     <joint name="joint_3_joint" type="revolute">
@@ -246,6 +248,7 @@
         <child link="joint_3" />
         <axis xyz="-2.3262389236353413e-63 -1.0 -4.413283944382435e-14" />
         <limit lower="${-pi}" upper="${pi}" effort="20" velocity="2" />
+        <dynamics friction="0.2" />
     </joint>
 
     <joint name="forearm_joint" type="revolute">
@@ -254,6 +257,7 @@
         <child link="forearm" />
         <axis xyz="3.730750440443123e-48 -2.775557561585062e-17 1.0" />
         <limit lower="${-122.9 * pi / 180}" upper="${122.9 * pi / 180}" effort="20" velocity="2" />
+        <dynamics friction="0.2" />
     </joint>
 
     <joint name="differential_joint" type="revolute">
@@ -262,6 +266,7 @@
         <child link="differential" />
         <axis xyz="3.730750440443123e-48 6.683542608242411e-14 1.0" />
         <limit lower="${-110 * pi / 180}" upper="${110 * pi / 180}" effort="8" velocity="2" />
+        <dynamics friction="0.2" />
     </joint>
 
     <joint name="gripper_joint" type="revolute">
@@ -270,6 +275,7 @@
         <child link="gripper" />
         <axis xyz="2.3262389236353413e-63 -1.0 -6.495339835895301e-14" />
         <limit lower="-3.141593" upper="3.141593" effort="8" velocity="2" />
+        <dynamics friction="0.2" />
     </joint>
 
     <joint name="finger_1_joint" type="prismatic">
@@ -278,6 +284,7 @@
         <child link="finger_1" />
         <axis xyz="-2.4967112710792502e-08 -1.4439660728622791e-53 0.9999999999999998" />
         <limit lower="-0.001" upper="0.025" effort="2" velocity="0.5" />
+        <dynamics friction="0.1" />
     </joint>
 
     <joint name="finger_2_joint" type="prismatic">
@@ -286,6 +293,7 @@
         <child link="finger_2" />
         <axis xyz="2.49671453513494e-08 1.262177448353619e-29 0.9999999999999997" />
         <limit lower="-0.001" upper="0.025" effort="2" velocity="0.5" />
+        <dynamics friction="0.1" />
     </joint>
 
     <joint name="dock_joint" type="fixed">
@@ -294,7 +302,7 @@
 		<child link="dock"/>
 	</joint>
 
-
+    <!-- Plugins -->
     <gazebo>
     <plugin
         name="gz::sim::systems::JointStatePublisher"
