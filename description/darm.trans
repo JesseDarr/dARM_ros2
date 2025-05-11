@@ -12,14 +12,29 @@
   </actuator>
 </transmission>
 
-<transmission name="joint_1_tran">
+<!-- Joint 1 - Left Motor -->
+<transmission name="joint_1_left_tran">
   <type>transmission_interface/SimpleTransmission</type>
   <joint name="joint_1_joint">
-    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
   </joint>
-  <actuator name="joint_1_actr">
-    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    <mechanicalReduction>1</mechanicalReduction>
+  <actuator name="joint_1_left_actr">
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    <!-- 9:1 gearbox -->
+    <mechanicalReduction>9.0</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<!-- Joint 1 - Right Motor -->
+<transmission name="joint_1_right_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="joint_1_joint">
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="joint_1_right_actr">
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    <!-- 9:1 gearbox - negative to invert direction -->
+    <mechanicalReduction>-9.0</mechanicalReduction>
   </actuator>
 </transmission>
 
@@ -78,26 +93,27 @@
   </actuator>
 </transmission>
 
-<transmission name="finger_1_tran">
+<!-- FINGERS -->
+<transmission name="finger_master_tran">
   <type>transmission_interface/SimpleTransmission</type>
+  <actuator name="finger_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>178.6</mechanicalReduction>
+  </actuator>
   <joint name="finger_1_joint">
     <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
   </joint>
-  <actuator name="finger_1_actr">
-    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    <mechanicalReduction>1</mechanicalReduction>
-  </actuator>
 </transmission>
 
-<transmission name="finger_2_tran">
+<transmission name="finger_mirror_tran">
   <type>transmission_interface/SimpleTransmission</type>
+  <actuator name="finger_actr">            
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>-178.6</mechanicalReduction>  <!-- invert -->
+  </actuator>
   <joint name="finger_2_joint">
     <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
   </joint>
-  <actuator name="finger_2_actr">
-    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    <mechanicalReduction>1</mechanicalReduction>
-  </actuator>
 </transmission>
 
 <transmission name="dock_tran">

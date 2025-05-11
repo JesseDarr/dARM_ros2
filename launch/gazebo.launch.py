@@ -27,7 +27,7 @@ def generate_launch_description():
     )
 
     # Configure initial state node
-    darm_initial_state = Node(
+    set_initial_state = Node(
         package    = pkg_name,
         executable = 'set_initial_joint_states.py',
         output     = 'screen'
@@ -71,7 +71,7 @@ def generate_launch_description():
         set_gazebo_model_path,
         gazebo,
         robot_state_publisher,
-        darm_initial_state,
+        set_initial_state,
         spawn_entity,
         bridge
     ]
