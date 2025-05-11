@@ -1,5 +1,5 @@
-<?xml version="1.0" ?>
-<robot name="darm_ros2" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+<?xml version="1.0"?>
+<robot name="darm_ros2" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <transmission name="base_link_tran">
     <type>transmission_interface/SimpleTransmission</type>
@@ -8,42 +8,42 @@
     </joint>
     <actuator name="base_link_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
+      <mechanicalReduction>1.0</mechanicalReduction>
     </actuator>
   </transmission>
 
-  <!-- Joint 1 - Left Motor -->
-  <transmission name="joint_1_left_tran">
+  <transmission name="joint_1_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="joint_1_joint">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
-    <actuator name="joint_1_left_actr">
+    <actuator name="joint_1_actr">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
       <mechanicalReduction>9.0</mechanicalReduction>
     </actuator>
   </transmission>
 
-  <!-- Joint 1 - Right Motor -->
-  <transmission name="joint_1_right_tran">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_1_joint">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="joint_1_right_actr">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-      <mechanicalReduction>-9.0</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-  <transmission name="joint_2_tran">
+  <!-- Joint 2 - Left Motor -->
+  <transmission name="joint_2_left_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="joint_2_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
-    <actuator name="joint_2_actr">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <actuator name="joint_2_left_actr">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
       <mechanicalReduction>9.0</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <!-- Joint 2 - Right Motor (inverted) -->
+  <transmission name="joint_2_right_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_2_joint">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="joint_2_right_actr">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>-9.0</mechanicalReduction>
     </actuator>
   </transmission>
 
@@ -76,18 +76,18 @@
     </joint>
     <actuator name="differential_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
+      <mechanicalReduction>1.0</mechanicalReduction>
     </actuator>
   </transmission>
 
-  <transmission name="gripper_trans">
+  <transmission name="gripper_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="gripper_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
     <actuator name="gripper_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
+      <mechanicalReduction>1.0</mechanicalReduction>
     </actuator>
   </transmission>
 
@@ -105,9 +105,9 @@
 
   <transmission name="finger_mirror_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <actuator name="finger_actr">            
+    <actuator name="finger_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>-178.6</mechanicalReduction>  <!-- invert -->
+      <mechanicalReduction>-178.6</mechanicalReduction>
     </actuator>
     <joint name="finger_2_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
