@@ -13,6 +13,7 @@ def generate_launch_description():
     pkg_name   = 'darm_ros2'
     sim_name   = 'ros_gz_sim'    
     sim_path   = os.path.join(get_package_share_directory(sim_name), 'launch', 'gz_sim.launch.py')
+    ctrl_mngr  = os.path.join(get_package_share_directory(pkg_name), 'config', 'controllers.yaml')
     world_path = os.path.join(get_package_share_directory(pkg_name), 'worlds', 'basic.sdf')
     model_path = os.path.join(get_package_share_directory(pkg_name), 'meshes')
     xacro_file = os.path.join(get_package_share_directory(pkg_name), 'description/darm.urdf.xacro')
@@ -65,7 +66,43 @@ def generate_launch_description():
             ('/world/basic/model/darm_ros2/joint_state', '/joint_states'),
         ]
     )
-    
+
+    # ——————————————————————————————————————————————————————
+    # ROS 2 Control manager + controllers
+    # ——————————————————————————————————————————————————————
+
+    # 1) controller_manager node
+    controller_manager = Node(
+        package    = 'controller_manager',
+        executable = 'ros2_control_node',
+        parameters = [{ 'robot_description': robot_desc, 'use_sim_time': True }, ctrl_mngr],
+        output     = 'screen'
+    )
+
+    # 2) spawn the joint_state_broadcaster
+    spawn_jsb = Node(
+        package    = 'controller_manager',
+        executable = 'spawner',
+        arguments  = ['joint_state_broadcaster'],
+        output     = 'screen'
+    )
+
+    # 3) spawn your arm trajectory controller
+    spawn_arm = Node(
+        package    = 'controller_manager',
+        executable = 'spawner',
+        arguments  = ['arm_controller'],
+        output     = 'screen'
+    )
+
+    # 4) spawn your finger group position controller
+    spawn_finger = Node(
+        package    = 'controller_manager',
+        executable = 'spawner',
+        arguments  = ['finger_controller'],
+        output     = 'screen'
+    )
+
     # Run the nodes
     return LaunchDescription([
         set_gazebo_model_path,
@@ -73,6 +110,12 @@ def generate_launch_description():
         robot_state_publisher,
         set_initial_state,
         spawn_entity,
-        bridge
+        bridge,
+
+        # ROS 2 Control
+        controller_manager,
+        spawn_jsb,
+        spawn_arm,
+        spawn_finger
     ]
 )

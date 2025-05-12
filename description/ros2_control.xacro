@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <ros2_control name="GazeboSystem" type="system">
+    <ros2_control name="darm_hardware" type="system">
         <hardware>
-            <plugin>gz_ros2_control/GZSystem</plugin>
+            <plugin>gz_ros2_control/GazeboSimSystem</plugin>
         </hardware>
 
         <joint name="joint_1_joint">
@@ -81,7 +81,7 @@
     </ros2_control>
 
     <gazebo>
-        <plugin name="ign_ros2_control::IgnitionROS2ControlPlugin" filename="libgz_ros2_control-system.so">
+        <plugin name="gz_ros2_control::GazeboSimROS2ControlPlugin" filename="libgz_ros2_control-system.so">
             <parameters>$(find darm_ros2)/config/controllers.yaml</parameters>
         </plugin>
     </gazebo>
