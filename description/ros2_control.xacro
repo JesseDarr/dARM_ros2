@@ -3,7 +3,7 @@
 
     <ros2_control name="GazeboSystem" type="system">
         <hardware>
-            <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+            <plugin>gz_ros2_control/GZSystem</plugin>
         </hardware>
 
         <joint name="joint_1_joint">
@@ -81,7 +81,7 @@
     </ros2_control>
 
     <gazebo>
-        <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+        <plugin name="gz_ros2_control" filename="libgz_ros2_control-system.so">
             <parameters>$(find darm_ros2)/config/controllers.yaml</parameters>
         </plugin>
     </gazebo>
