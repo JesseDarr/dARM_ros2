@@ -17,6 +17,7 @@ def generate_launch_description():
     world_path = os.path.join(get_package_share_directory(pkg_name), 'worlds', 'basic.sdf')
     model_path = os.path.join(get_package_share_directory(pkg_name), 'meshes')
     xacro_file = os.path.join(get_package_share_directory(pkg_name), 'description/darm.urdf.xacro')
+    gz_plugins = os.path.join(get_package_share_directory('gz_ros2_control'), 'gz_hardware_plugins.xml')
     robot_desc = xacro.process_file(xacro_file).toxml()
 
     # Configure robot state publisher node
@@ -75,7 +76,11 @@ def generate_launch_description():
     controller_manager = Node(
         package    = 'controller_manager',
         executable = 'ros2_control_node',
-        parameters = [{ 'robot_description': robot_desc, 'use_sim_time': True }, ctrl_mngr],
+        parameters = [
+            { 'robot_description': robot_desc, 'use_sim_time': True },
+            { 'resource_manager.plugin_description': gz_plugins },
+            ctrl_mngr,
+        ],
         output     = 'screen'
     )
 

@@ -305,10 +305,7 @@
 
     <!-- Plugins -->
     <gazebo>
-    <plugin
-        name="gz::sim::systems::JointStatePublisher"
-        filename="gz-sim-joint-state-publisher-system"/>
+        <plugin name="gz::sim::systems::JointStatePublisher" filename="gz-sim-joint-state-publisher-system"/>
     </gazebo>
-
 
 </robot>
