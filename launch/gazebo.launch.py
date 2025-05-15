@@ -52,9 +52,7 @@ def generate_launch_description():
     spawn_entity = Node(
         package    = 'ros_gz_sim',
         executable = 'create',
-        arguments  = ['-world', 'basic',
-                      '-topic', 'robot_description',
-                      '-name',  pkg_name],
+        arguments  = ['-world', 'basic', '-topic', 'robot_description', '-name',  pkg_name],
         output     = 'screen'
     )
 
@@ -85,7 +83,7 @@ def generate_launch_description():
 
     # Ros2_Control - Other Nodes
     controller_names = ['joint_state_broadcaster', 'arm_controller', 'finger_controller',]
-    spawner_nodes = [
+    spawner_nodes    = [
         Node(
             package    = 'controller_manager',
             executable = 'spawner',
@@ -105,6 +103,5 @@ def generate_launch_description():
 
         # ROS 2 Control
         controller_manager,
-        *spawner_nodes
-    ]
-)
+        *spawner_nodes,
+    ])
