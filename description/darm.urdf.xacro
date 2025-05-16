@@ -3,6 +3,7 @@
 
 <xacro:include filename="$(find darm_ros2)/description/materials.xacro" />
 <xacro:include filename="$(find darm_ros2)/description/darm.trans" />
+<xacro:include filename="$(find darm_ros2)/description/ros2_control.xacro" />
 
     <!-- LINKS -->
 	<link name="world" />
@@ -304,10 +305,7 @@
 
     <!-- Plugins -->
     <gazebo>
-    <plugin
-        name="gz::sim::systems::JointStatePublisher"
-        filename="gz-sim-joint-state-publisher-system"/>
+        <plugin name="gz::sim::systems::JointStatePublisher" filename="gz-sim-joint-state-publisher-system"/>
     </gazebo>
-
 
 </robot>
