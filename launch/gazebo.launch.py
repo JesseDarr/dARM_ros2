@@ -13,12 +13,9 @@ def generate_launch_description():
     pkg_name   = 'darm_ros2'
     sim_name   = 'ros_gz_sim'
     sim_path   = os.path.join(get_package_share_directory(sim_name), 'launch', 'gz_sim.launch.py')
-    ctrl_mngr  = os.path.join(get_package_share_directory(pkg_name), 'config', 'controllers.yaml')
     world_path = os.path.join(get_package_share_directory(pkg_name), 'worlds', 'basic.sdf')
     model_path = os.path.join(get_package_share_directory(pkg_name), 'meshes')
     xacro_file = os.path.join(get_package_share_directory(pkg_name), 'description/darm.urdf.xacro')
-    gz_plugins = os.path.join(get_package_share_directory('gz_ros2_control'), 'gz_hardware_plugins.xml')
-    # generate the robot_description string once
     robot_desc = xacro.process_file(xacro_file).toxml()
 
     # Robot State Publisher
