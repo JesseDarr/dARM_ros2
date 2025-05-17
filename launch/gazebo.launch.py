@@ -84,9 +84,9 @@ def generate_launch_description():
         set_gazebo_model_path,
         gazebo,
         robot_state_publisher,
-        set_initial_state,
         bridge,
         spawn_entity,
+        set_initial_state,
 
         # ROS 2 Control
         RegisterEventHandler(
