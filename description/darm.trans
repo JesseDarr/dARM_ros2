@@ -12,24 +12,18 @@
         </actuator>
     </transmission>
 
-    <!-- Joint 2 - Left Motor -->
-    <transmission name="joint_2_left_tran">
-        <type>transmission_interface/SimpleTransmission</type>
+    <transmission name="joint_2_tran">
+        <type>transmission_interface/DifferentialTransmission</type>
+
         <joint name="joint_2_joint">
             <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
         </joint>
+
         <actuator name="joint_2_left_actr">
             <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
             <mechanicalReduction>9.0</mechanicalReduction>
         </actuator>
-    </transmission>
 
-    <!-- Joint 2 - Right Motor (inverted) -->
-    <transmission name="joint_2_right_tran">
-        <type>transmission_interface/SimpleTransmission</type>
-        <joint name="joint_2_joint">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-        </joint>
         <actuator name="joint_2_right_actr">
             <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
             <mechanicalReduction>-9.0</mechanicalReduction>
