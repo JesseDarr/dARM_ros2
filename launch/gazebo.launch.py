@@ -79,6 +79,27 @@ def generate_launch_description():
         ) for name in controller_names
     ]
 
+    # Joy Stick
+    joy_node = Node(
+        package    = 'joy',
+        executable = 'joy_node',
+        name       = 'joy_node',
+        output     = 'screen',
+        parameters = [{
+            'device': '/dev/input/event0',
+            'deadzone': 0.05,
+            'autorepeat_rate': 20.0
+        }]
+    )
+
+    # Teleop (remote operations)
+    teleop_node = Node(
+        package    = 'darm_ros2',
+        executable = 'teleop_ps5.py',
+        name       = 'teleop_ps5',
+        output     = 'screen',
+    )
+
     # Run the nodes
     return LaunchDescription([
         set_gazebo_model_path,
@@ -87,6 +108,11 @@ def generate_launch_description():
         bridge,
         spawn_entity,
         set_initial_state,
+
+
+        # Joystick + Teleop
+        joy_node,
+        teleop_node,
 
         # ROS 2 Control
         RegisterEventHandler(
