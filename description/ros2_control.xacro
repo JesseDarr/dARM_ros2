@@ -85,5 +85,6 @@
             <parameters>$(find darm_ros2)/config/controllers.yaml</parameters>
         </plugin>
     </gazebo>
+    
 
 </robot>
