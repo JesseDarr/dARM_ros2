@@ -26,13 +26,6 @@ def generate_launch_description():
         parameters = [{'robot_description':  robot_desc}, {'publish_robot_description': True}, {'use_sim_time': True}]
     )
 
-    # Initial State Node - 1 shot
-    set_initial_state = Node(
-        package    = pkg_name,
-        executable = 'set_initial_joint_states.py',
-        output     = 'screen'
-    )
-
     # Gazebo model path
     set_gazebo_model_path = SetEnvironmentVariable(
         name  = 'GAZEBO_MODEL_PATH',
@@ -88,7 +81,7 @@ def generate_launch_description():
         parameters = [{
             'device': '/dev/input/event0',
             'deadzone': 0.05,
-            'autorepeat_rate': 20.0
+            'autorepeat_rate': 30.0
         }]
     )
 
@@ -107,8 +100,6 @@ def generate_launch_description():
         robot_state_publisher,
         bridge,
         spawn_entity,
-        set_initial_state,
-
 
         # Joystick + Teleop
         joy_node,

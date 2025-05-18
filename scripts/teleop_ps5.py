@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
@@ -22,14 +23,18 @@ class PS5Teleop(Node):
         ]
 
     def handle_joy_input(self, msg: Joy):
+        # 1) Dead-man’s switch: L1 (button index 4)
+        if not msg.buttons[4]:
+            return
+
+        # 2) Build and publish a 6-joint trajectory
         jt = JointTrajectory()
         jt.joint_names = self.joint_names
 
         pt = JointTrajectoryPoint()
-        # left stick X/Y → first two joints; rest zero
-        x = msg.axes[0] * 1.0
-        y = msg.axes[1] * 1.0
-        pt.positions = [x, y, 0.0, 0.0, 0.0, 0.0]
+        j1 = msg.axes[1] * 1.0
+        j2 = msg.axes[0] * 1.0
+        pt.positions = [j1, j2, 0.0, 0.0, 0.0, 0.0]
         pt.time_from_start.sec = 0
 
         jt.points = [pt]
@@ -39,6 +44,7 @@ def main(args=None):
     rclpy.init(args = args)
     node = PS5Teleop()
     rclpy.spin(node)
+    node.destroy_node()
     rclpy.shutdown()
 
 if __name__ == '__main__':
