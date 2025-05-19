@@ -5,7 +5,7 @@ controller_manager:
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
     arm_controller:
-      type: joint_trajectory_controller/JointTrajectoryController
+      type: position_controllers/JointGroupPositionController
     finger_controller:
       type: position_controllers/JointGroupPositionController
 
@@ -22,14 +22,14 @@ arm_controller:
       - forearm_joint
       - differential_joint
       - gripper_joint
-    command_interfaces:
-      - position
-    state_interfaces:
-      - position
-      - velocity  
-    state_publish_rate: 50
-    action_monitor_rate: 10.0
-    allow_multiple_goals: false
+    publish_rate: 50
+    gains:
+      joint_1_joint:      { p: 10.0, i: 0.0, d: 0.0 }
+      joint_2_joint:      { p: 10.0, i: 0.0, d: 0.0 }
+      joint_3_joint:      { p: 10.0, i: 0.0, d: 0.0 }
+      forearm_joint:      { p: 10.0, i: 0.0, d: 0.0 }
+      differential_joint: { p: 10.0, i: 0.0, d: 0.0 }
+      gripper_joint:      { p: 10.0, i: 0.0, d: 0.0 }
 
 finger_controller:
   ros__parameters:
