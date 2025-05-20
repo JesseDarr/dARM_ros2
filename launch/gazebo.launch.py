@@ -62,7 +62,7 @@ def generate_launch_description():
     )
 
     # Ros2_Control - Other Nodes
-    controller_names = ['joint_state_broadcaster', 'arm_controller', 'finger_controller',]
+    controller_names = ['joint_state_broadcaster', 'arm_controller', ]
     spawner_nodes    = [
         Node(
             package    = 'controller_manager',
