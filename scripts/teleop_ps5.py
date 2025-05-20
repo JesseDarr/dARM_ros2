@@ -17,7 +17,9 @@ class PS5Teleop(Node):
             'joint_3_joint',
             'forearm_joint',
             'differential_joint',
-            'gripper_joint'
+            'gripper_joint',
+            'finger_1_joint',
+            'finger_2_joint'
         ]
         self.targets = [0.0] * len(self.joint_names)
 
