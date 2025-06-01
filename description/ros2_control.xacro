@@ -58,7 +58,7 @@
 
     <gazebo>
         <plugin name="gz_ros2_control::GazeboSimROS2ControlPlugin" filename="libgz_ros2_control-system.so">
-            <parameters>$(find darm_ros2)/config/controllers.yaml</parameters>
+            <parameters>$(find darm_ros2)/config/ros2_control_controllers.yaml</parameters>
             <use_ros_transmissions>true</use_ros_transmissions>
             <robot_transmissions>$(find darm_ros2)/description/darm.trans</robot_transmissions>
             <enable_position_limits>true</enable_position_limits>
