@@ -220,7 +220,7 @@
 
     <!-- JOINTS -->
     <joint name="base_joint" type="fixed">
-        <origin xyz="0 0 0" rpy="${90 * pi / 180} 0 0"/>
+        <origin xyz="0 0 0" rpy="${90 * pi / 180} 0 ${180 * pi / 180}"/>
         <parent link="world"/>
         <child link="base_link"/>        
     </joint>
@@ -235,7 +235,7 @@
     </joint>
 
     <joint name="joint_2_joint" type="revolute">
-        <origin xyz="-0.031000000000000003 -0.071 2.857436509628995e-17" rpy="-1.5707963267948963 -4.02455846426619e-16 -1.5707963267948966" />
+        <origin xyz="-0.031000000000000003 -0.071 2.857436509628995e-17" rpy="-1.5707963267948963 ${-113 * pi / 180} -1.5707963267948966" />" />
         <parent link="joint_1" />
         <child link="joint_2" />
         <axis xyz="-3.730750440443123e-48 2.324793976983833e-16 1.0" />
@@ -253,7 +253,7 @@
     </joint>
 
     <joint name="forearm_joint" type="revolute">
-        <origin xyz="-0.0364 -0.065 -2.8686345638485836e-15" rpy="1.5707963267948966 4.413283944382435e-14 -1.5707963267948966" />
+        <origin xyz="-0.0364 -0.065 -2.8686345638485836e-15" rpy="1.5707963267948966 ${122.9 * pi / 180} -1.5707963267948966" />
         <parent link="joint_3" />
         <child link="forearm" />
         <axis xyz="3.730750440443123e-48 -2.775557561585062e-17 1.0" />

@@ -26,13 +26,6 @@ def generate_launch_description():
         parameters = [{'robot_description':  robot_desc}, {'publish_robot_description': True}, {'use_sim_time': True}]
     )
 
-    # Initial State Node - 1 shot
-    set_initial_state = Node(
-        package    = pkg_name,
-        executable = 'set_initial_joint_states.py',
-        output     = 'screen'
-    )
-
     # Gazebo model path
     set_gazebo_model_path = SetEnvironmentVariable(
         name  = 'GAZEBO_MODEL_PATH',
@@ -69,7 +62,7 @@ def generate_launch_description():
     )
 
     # Ros2_Control - Other Nodes
-    controller_names = ['joint_state_broadcaster', 'arm_controller', 'finger_controller',]
+    controller_names = ['joint_state_broadcaster', 'arm_controller', ]
     spawner_nodes    = [
         Node(
             package    = 'controller_manager',
@@ -79,14 +72,38 @@ def generate_launch_description():
         ) for name in controller_names
     ]
 
+    # Joy Stick
+    joy_node = Node(
+        package    = 'joy',
+        executable = 'joy_node',
+        name       = 'joy_node',
+        output     = 'screen',
+        parameters = [{
+            'device': '/dev/input/event0',
+            'deadzone': 0.05,
+            'autorepeat_rate': 30.0
+        }]
+    )
+
+    # Teleop (remote operations)
+    teleop_node = Node(
+        package    = 'darm_ros2',
+        executable = 'teleop_ps5.py',
+        name       = 'teleop_ps5',
+        output     = 'screen',
+    )
+
     # Run the nodes
     return LaunchDescription([
         set_gazebo_model_path,
         gazebo,
         robot_state_publisher,
-        set_initial_state,
         bridge,
         spawn_entity,
+
+        # Joystick + Teleop
+        joy_node,
+        teleop_node,
 
         # ROS 2 Control
         RegisterEventHandler(
