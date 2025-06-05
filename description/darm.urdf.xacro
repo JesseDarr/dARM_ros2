@@ -239,7 +239,7 @@
         <parent link="joint_1" />
         <child link="joint_2" />
         <axis xyz="-3.730750440443123e-48 2.324793976983833e-16 1.0" />
-        <limit lower="${-113 * pi / 180}" upper="${113 * pi / 180}" effort="40" velocity="2" />
+        <limit lower="-0.001" upper="${226 * pi / 180}" effort="40" velocity="2" />
         <dynamics friction="0.2" />
     </joint>
 
@@ -257,7 +257,7 @@
         <parent link="joint_3" />
         <child link="forearm" />
         <axis xyz="3.730750440443123e-48 -2.775557561585062e-17 1.0" />
-        <limit lower="${-122.9 * pi / 180}" upper="${122.9 * pi / 180}" effort="20" velocity="2" />
+        <limit lower="-0.001" upper="${122.9 * pi / 180}" effort="20" velocity="2" />
         <dynamics friction="0.2" />
     </joint>
 

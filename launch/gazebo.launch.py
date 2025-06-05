@@ -87,10 +87,15 @@ def generate_launch_description():
 
     # Teleop (remote operations)
     teleop_node = Node(
-        package    = 'darm_ros2',
-        executable = 'teleop_ps5.py',
-        name       = 'teleop_ps5',
-        output     = 'screen',
+        package     = 'darm_ros2',
+        executable  = 'teleop_ps5.py',
+        name        = 'teleop_ps5',
+        output      = 'screen',
+        emulate_tty = True,
+        arguments   = [
+            '--ros-args',                # begin ROS-specific CLI
+            '--log-level', 'teleop_ps5:=debug'   # <node-name>:=<level>
+        ],
     )
 
     # Run the nodes
