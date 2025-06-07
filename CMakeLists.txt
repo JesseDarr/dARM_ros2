@@ -4,7 +4,7 @@ project(darm_ros2)
 find_package(ament_cmake REQUIRED)
 
 install(
-  DIRECTORY config description launch meshes worlds
+  DIRECTORY config description launch meshes rviz worlds
   DESTINATION share/${PROJECT_NAME}
 )
 
