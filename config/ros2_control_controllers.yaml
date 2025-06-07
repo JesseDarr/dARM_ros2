@@ -24,11 +24,11 @@ arm_controller:
       - finger_2_joint      
     publish_rate: 50
     gains:
-      joint_1_joint:      { p: 10.0, i: 0.0, d: 0.0 }
-      joint_2_joint:      { p: 10.0, i: 0.0, d: 0.0 }
-      joint_3_joint:      { p: 10.0, i: 0.0, d: 0.0 }
-      forearm_joint:      { p: 10.0, i: 0.0, d: 0.0 }
-      differential_joint: { p: 10.0, i: 0.0, d: 0.0 }
-      gripper_joint:      { p: 10.0, i: 0.0, d: 0.0 }
-      finger_1_joint:     { p: 10.0, i: 0.0, d: 0.0 }
-      finger_2_joint:     { p: 10.0, i: 0.0, d: 0.0 }
+      joint_1_joint:      {p: 100.0, i: 0.01, d: 10.0}
+      joint_2_joint:      {p: 100.0, i: 0.01, d: 10.0}
+      joint_3_joint:      {p: 100.0, i: 0.01, d: 10.0}
+      forearm_joint:      {p: 100.0, i: 0.01, d: 10.0}
+      differential_joint: {p: 100.0, i: 0.01, d: 10.0}
+      gripper_joint:      {p: 100.0, i: 0.01, d: 10.0}
+      finger_1_joint:     {p: 100.0, i: 0.01, d: 10.0}
+      finger_2_joint:     {p: 100.0, i: 0.01, d: 10.0}
