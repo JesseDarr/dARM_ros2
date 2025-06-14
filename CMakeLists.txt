@@ -9,7 +9,7 @@ install(
 )
 
 install(
-  PROGRAMS scripts/set_initial_joint_states.py scripts/teleop_ps5.py
+  PROGRAMS scripts/teleop_ps5.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
