@@ -10,9 +10,9 @@
 
     <link name="base_link">
         <inertial>
-            <origin xyz="-2.4821E-09 1.3166E-10 0.029745" rpy="0 0 0" />
-            <mass value="3.9468" />
-            <inertia ixx="0.043126" ixy="-1.7415E-11" ixz="2.6551E-10" iyy="0.043126" iyz="-3.9532E-12" izz="0.081135" />
+            <origin xyz="-2.48214977716486E-09 1.31657070874586E-10 0.029744552660135" rpy="0 0 0" />
+            <mass value="3.94679994437601" />
+            <inertia ixx="0.0431256456187624" ixy="-1.74150231764969E-11" ixz="2.65508777971032E-10" iyy="0.04312564565183" iyz="-3.95324375768137E-12" izz="0.0811349502099203" />
         </inertial>
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -27,9 +27,9 @@
 
     <link name="link_1">
         <inertial>
-            <origin xyz="7.1591E-08 0.058438 -8.6894E-09" rpy="0 0 0" />
-            <mass value="0.92957" />
-            <inertia ixx="0.0022123" ixy="2.3769E-09" ixz="3.7302E-09" iyy="0.0050488" iyz="-4.2711E-10" izz="0.0055584" />
+            <origin xyz="7.15911315456218E-08 8.68939660755098E-09 0.0584380287888475" rpy="0 0 0" />
+            <mass value="0.929574003768527" />
+            <inertia ixx="0.00221230913328666" ixy="-3.73024066520023E-09" ixz="2.37690034244167E-09" iyy="0.00555836322466348" iyz="4.27114309369668E-10" izz="0.00504882065680784" />
         </inertial>
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
@@ -44,9 +44,9 @@
 
     <link name="link_2">
         <inertial>
-            <origin xyz="9.624E-09 0.31697 1.3709E-10" rpy="0 0 0" />
-            <mass value="0.59942" />
-            <inertia ixx="0.0027984" ixy="-1.549E-11" ixz="-2.8495E-12" iyy="0.0011453" iyz="2.7668E-13" izz="0.0030477" />
+            <origin xyz="9.62400180381701E-09 -1.37086921334664E-10 0.0969701828522983" rpy="0 0 0" />
+            <mass value="0.599415288390779" />
+            <inertia ixx="0.00279842867682668" ixy="2.84949733351285E-12" ixz="-1.54896682375371E-11" iyy="0.00304765284781319" iyz="-2.7667649011426E-13" izz="0.00114528537253384" />
         </inertial>
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
@@ -61,9 +61,9 @@
 
     <link name="link_3">
         <inertial>
-            <origin xyz="0.0026787 0.056368 -5.0002E-08" rpy="0 0 0" />
-            <mass value="0.28797" />
-            <inertia ixx="0.00071119" ixy="-1.6217E-06" ixz="1.3749E-10" iyy="0.00048901" iyz="6.5455E-10" izz="0.00059962" />
+            <origin xyz="0.00267869003124433 5.00018886047696E-08 0.0563682767579012" rpy="0 0 0" />
+            <mass value="0.287966931095487" />
+            <inertia ixx="0.000711193490596281" ixy="-1.3748826737474E-10" ixz="-1.62165030254086E-06" iyy="0.000599618348634449" iyz="-6.54553165240046E-10" izz="0.000489006809690983" />
         </inertial>
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
@@ -78,9 +78,9 @@
 
     <link name="forearm">
         <inertial>
-            <origin xyz="-0.01112 0.60989 1.3852E-09" rpy="0 0 0" />
-            <mass value="0.72618" />
-            <inertia ixx="0.0060414" ixy="-0.00087072" ixz="-2.2061E-11" iyy="0.0018715" iyz="6.2388E-11" izz="0.0072794" />
+            <origin xyz="-0.0111196882232257 -1.38520825281059E-09 0.139892220718873" rpy="0 0 0" />
+            <mass value="0.726179387863323" />
+            <inertia ixx="0.00604137800947662" ixy="2.20607343735278E-11" ixz="-0.000870723898953885" iyy="0.00727938326913045" iyz="-6.23876885521001E-11" izz="0.00187146307463222" />
         </inertial>
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
@@ -95,9 +95,9 @@
 
     <link name="differential">
         <inertial>
-            <origin xyz="1.0228E-10 0.81054 -1.803E-10" rpy="0 0 0" />
-            <mass value="0.12487" />
-            <inertia ixx="3.4148E-05" ixy="-1.1807E-13" ixz="1.5487E-13" iyy="0.00014464" iyz="1.2478E-13" izz="0.00014697" />
+            <origin xyz="1.02275773739878E-10 1.80304198167004E-10 0.000543571929508047" rpy="0 0 0" />
+            <mass value="0.124870511204017" />
+            <inertia ixx="3.41480810003697E-05" ixy="-1.54868824146798E-13" ixz="-1.18074691967879E-13" iyy="0.000146971987099205" iyz="-1.24779254989816E-13" izz="0.000144640694046327" />
         </inertial>
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
@@ -112,9 +112,9 @@
 
     <link name="gripper">
         <inertial>
-            <origin xyz="1.47508677776788E-10 0.87862732529105 4.19167841612699E-10" rpy="0 0 0" />
+            <origin xyz="1.47508677544427E-10 -4.19167787497244E-10 0.0486273252910504" rpy="0 0 0" />
             <mass value="0.227833460574031" />
-            <inertia ixx="0.000187517505664128" ixy="-3.14443887981606E-12" ixz="-3.98883278994357E-11" iyy="0.000181158961918109" iyz="1.97659221684485E-13" izz="0.000227045470734226" />
+            <inertia ixx="0.000187517505664128" ixy="3.98883278992547E-11" ixz="-3.14443887964494E-12" iyy="0.000227045470734226" iyz="-1.97659223492597E-13" izz="0.000181158961918109" />
         </inertial>
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
@@ -129,9 +129,9 @@
 
     <link name="finger_1">
         <inertial>
-            <origin xyz="-0.0162149507250985 0.938840073230663 -0.00086445843187576" rpy="0 0 0" />
+            <origin xyz="-0.0397149506377288 0.0043644596805526 0.0174753151362246" rpy="0 0 0" />
             <mass value="0.0333577018228372" />
-            <inertia ixx="1.08379131084182E-05" ixy="-1.84217384725124E-07" ixz="-3.69353084704429E-07" iyy="4.94385971740682E-06" iyz="-7.64596058297643E-07" izz="1.18448488567153E-05" />
+            <inertia ixx="1.08379131084182E-05" ixy="3.69353084704428E-07" ixz="-1.84217384725127E-07" iyy="1.18448488567153E-05" iyz="7.64596058297597E-07" izz="4.94385971740681E-06" />
         </inertial>
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
@@ -146,9 +146,9 @@
 
     <link name="finger_2">
         <inertial>
-            <origin xyz="0.0162149507252072 0.938840073230661 0.000864458431773843" rpy="0 0 0" />
+            <origin xyz="0.0397149506377779 -0.00436445968013956 0.0174753151362146" rpy="0 0 0" />
             <mass value="0.0333577018228331" />
-            <inertia ixx="1.08379131084146E-05" ixy="1.84217384719479E-07" ixz="-3.69353084703627E-07" iyy="4.94385971740466E-06" iyz="7.64596058296907E-07" izz="1.18448488567099E-05" />
+            <inertia ixx="1.08379131084146E-05" ixy="3.6935308470359E-07" ixz="1.84217384719551E-07" iyy="1.18448488567102E-05" iyz="-7.6459605829553E-07" izz="4.94385971740436E-06" />
         </inertial>
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
@@ -163,18 +163,18 @@
 
     <link name="dock">
         <inertial>
-            <origin xyz="9.123968339512894e-08 0.02244543692492791 -0.21216314201498515" rpy="0.0 0.0 0.0" />
-            <mass value="4.14283366579888" />
-            <inertia ixx="0.003902882548391967" iyy="0.00782818367286213" izz="0.006179527994280975" ixy="-2.754251235646076e-09" iyz="0.00017015521062901904" ixz="6.810558796533437e-09" />
+            <origin xyz="-6.06353067490172E-08 0.0224446345139935 -0.212157844299707" rpy="0 0 0" />
+            <mass value="0.527745087881467" />
+            <inertia ixx="0.000497536173309031" ixy="-6.39662591362518E-10" ixz="1.426171887878E-09" iyy="0.000997647866144999" iyz="2.17268365789033E-05" izz="0.000787144635104907" />
         </inertial>
         <visual>
-            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
-            <geometry> <mesh filename="package://darm_ros2/meshes/dock.stl" scale="0.001 0.001 0.001" /> </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry> <mesh filename="package://darm_ros2/meshes/dock.stl" /> </geometry>
             <material name="rubber"/>
         </visual>
         <collision>
-            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
-            <geometry> <mesh filename="package://darm_ros2/meshes/dock.stl" scale="0.001 0.001 0.001" /> </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry> <mesh filename="package://darm_ros2/meshes/dock.stl" /> </geometry>
         </collision>
     </link>
 
@@ -185,17 +185,17 @@
         <child link="base_link"/>        
     </joint>
 
-    <joint name="joint_1_joint" type="revolute">
-        <origin xyz="0 -0.14444 0" rpy="${pi} 0 0" />
+    <joint name="link_1_joint" type="revolute">
+        <origin xyz="0 0 0.14444" rpy="0 0 0" />
         <parent link="base_link" />
         <child link="link_1" />
-        <axis xyz="0 1 0"/>
+        <axis xyz="0 0 1"/>
         <limit lower="${-pi - 0.5}" upper="${pi + 0.5}" effort="20" velocity="2" />
         <dynamics friction="0.2" />
     </joint>
 
-    <joint name="joint_2_joint" type="revolute">
-        <origin xyz="0 -0.14444 0" rpy="0 0 0" />
+    <joint name="link_2_joint" type="revolute">
+        <origin xyz="0 0 0.07556" rpy="0 0 0" />
         <parent link="link_1" />
         <child link="link_2" />
         <axis xyz="1 0 0"/>
@@ -203,62 +203,62 @@
         <dynamics friction="0.2" />
     </joint>
 
-    <joint name="joint_3_joint" type="revolute">
-        <origin xyz="0 0.40708 0" rpy="0 0 0" />
+    <joint name="link_3_joint" type="revolute">
+        <origin xyz="0 0 0.18708" rpy="0 0 0" />
         <parent link="link_2" />
         <child link="link_3" />
-        <axis xyz="0 1 0" />
+        <axis xyz="0 0 1" />
         <limit lower="${-pi - 0.5}" upper="${pi + 0.5}" effort="20" velocity="2" />
         <dynamics friction="0.2" />
     </joint>
 
     <joint name="forearm_joint" type="revolute">
-        <origin xyz="0 -0.40708 0" rpy="0 0 0" />
+        <origin xyz="0 0 0.06292" rpy="0 0 0" />
         <parent link="link_3" />
         <child link="forearm" />
-        <axis xyz="-1 0 0"/>
+        <axis xyz="1 0 0"/>
         <limit lower="-0.001" upper="${122.9 * pi / 180}" effort="20" velocity="2" />
         <dynamics friction="0.2" />
     </joint>
 
     <joint name="differential_joint" type="revolute">
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="0 0 0.34" rpy="0 0 0" />
         <parent link="forearm" />
         <child link="differential" />
-        <axis xyz="-1 0 0"/>
+        <axis xyz="1 0 0"/>
         <limit lower="${-110 * pi / 180}" upper="${110 * pi / 180}" effort="8" velocity="2" />
         <dynamics friction="0.2" />
     </joint>
 
     <joint name="gripper_joint" type="revolute">
-        <origin xyz="0.052776 0.021377 0.003731" rpy="0 0 0"/>
+        <origin xyz="0 0 0.02" rpy="0 0 0" />
         <parent link="differential" />
         <child link="gripper" />
-        <axis xyz="0 -0.985109 -0.171929"/>
+        <axis xyz="0 0 -1" />
         <limit lower="-3.141593" upper="3.141593" effort="8" velocity="2" />
         <dynamics friction="0.2" />
     </joint>
 
     <joint name="finger_1_joint" type="prismatic">
-        <origin xyz="0.0265 0 0" rpy="0 0 0" />
+        <origin xyz="0.05 -0.0035 0.091365" rpy="0 0 0" />
         <parent link="gripper" />
         <child link="finger_1" />
-        <axis xyz="1 0 0"/>
+        <axis xyz="-1 0 0"/>
         <limit lower="-0.001" upper="0.025" effort="2" velocity="0.5" />
         <dynamics friction="0.1" />
     </joint>
 
     <joint name="finger_2_joint" type="prismatic">
-        <origin xyz="-0.0265 0 0" rpy="0 0 0" />
+        <origin xyz="-0.05 0.0035 0.091365" rpy="0 0 0" />
         <parent link="gripper" />
         <child link="finger_2" />
-        <axis xyz="1 0 0"/>
+        <axis xyz="-1 0 0"/>
         <limit lower="-0.001" upper="0.025" effort="2" velocity="0.5" />
         <dynamics friction="0.1" />
     </joint>
 
     <joint name="dock_joint" type="fixed">
-		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<origin xyz="0 0 0" rpy="1.5707963267949 0 0" />
 		<parent link="base_link"/>
 		<child link="dock"/>
 	</joint>
