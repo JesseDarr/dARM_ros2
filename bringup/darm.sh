@@ -1,5 +1,4 @@
 #!/bin/bash
-# Single script to launch the myCobot with Gazebo and ROS 2 Controllers
 
 cleanup() {
     echo "Cleaning up..."

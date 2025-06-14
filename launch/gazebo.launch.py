@@ -93,8 +93,8 @@ def generate_launch_description():
         output      = 'screen',
         emulate_tty = True,
         arguments   = [
-            '--ros-args',                # begin ROS-specific CLI
-            '--log-level', 'teleop_ps5:=debug'   # <node-name>:=<level>
+            '--ros-args',                
+            '--log-level', 'teleop_ps5:=debug'  
         ],
     )
 

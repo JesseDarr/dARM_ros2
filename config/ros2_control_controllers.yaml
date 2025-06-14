@@ -14,9 +14,9 @@ joint_state_broadcaster:
 arm_controller:
   ros__parameters:
     joints:
-      - joint_1_joint
-      - joint_2_joint
-      - joint_3_joint
+      - link_1_joint
+      - link_2_joint
+      - link_3_joint
       - forearm_joint
       - differential_joint
       - gripper_joint
@@ -24,9 +24,9 @@ arm_controller:
       - finger_2_joint      
     publish_rate: 50
     gains:
-      joint_1_joint:      {p: 100.0, i: 0.01, d: 10.0}
-      joint_2_joint:      {p: 100.0, i: 0.01, d: 10.0}
-      joint_3_joint:      {p: 100.0, i: 0.01, d: 10.0}
+      link_1_joint:      {p: 100.0, i: 0.01, d: 10.0}
+      link_2_joint:      {p: 100.0, i: 0.01, d: 10.0}
+      link_3_joint:      {p: 100.0, i: 0.01, d: 10.0}
       forearm_joint:      {p: 100.0, i: 0.01, d: 10.0}
       differential_joint: {p: 100.0, i: 0.01, d: 10.0}
       gripper_joint:      {p: 100.0, i: 0.01, d: 10.0}
