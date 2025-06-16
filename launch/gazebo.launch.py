@@ -13,9 +13,10 @@ def generate_launch_description():
     pkg_name   = 'darm_ros2'
     sim_name   = 'ros_gz_sim'
     sim_path   = os.path.join(get_package_share_directory(sim_name), 'launch', 'gz_sim.launch.py')
+    rviz_path  = os.path.join(get_package_share_directory(pkg_name), 'rviz', 'darm.rviz')
     world_path = os.path.join(get_package_share_directory(pkg_name), 'worlds', 'basic.sdf')
     model_path = os.path.join(get_package_share_directory(pkg_name), 'meshes')
-    xacro_file = os.path.join(get_package_share_directory(pkg_name), 'description/darm.urdf.xacro')
+    xacro_file = os.path.join(get_package_share_directory(pkg_name), 'description/darm.urdf.xacro')    
     robot_desc = xacro.process_file(xacro_file).toxml()
 
     # Robot State Publisher
@@ -96,6 +97,15 @@ def generate_launch_description():
         ],
     )
 
+    # RVIZ2
+    rviz = Node(
+        package    = 'rviz2',
+        executable = 'rviz2',
+        arguments  = ['-d', rviz_path],
+        output     = 'screen',
+        emulate_tty = True
+    )
+
     # Run the nodes
     return LaunchDescription([
         set_gazebo_model_path,
@@ -103,6 +113,7 @@ def generate_launch_description():
         robot_state_publisher,
         bridge,
         spawn_entity,
+        rviz,
 
         # Joystick + Teleop
         joy_node,
