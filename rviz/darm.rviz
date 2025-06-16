@@ -102,17 +102,17 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        joint_1:
+        link_1:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        joint_2:
+        link_2:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        joint_3:
+        link_3:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -138,23 +138,7 @@ Visualization Manager:
         All Enabled: true
         base_link:
           Value: true
-        differential:
-          Value: true
         dock:
-          Value: true
-        finger_1:
-          Value: true
-        finger_2:
-          Value: true
-        forearm:
-          Value: true
-        gripper:
-          Value: true
-        joint_1:
-          Value: true
-        joint_2:
-          Value: true
-        joint_3:
           Value: true
         world:
           Value: true
@@ -168,16 +152,6 @@ Visualization Manager:
           base_link:
             dock:
               {}
-            joint_1:
-              joint_2:
-                joint_3:
-                  forearm:
-                    differential:
-                      gripper:
-                        finger_1:
-                          {}
-                        finger_2:
-                          {}
       Update Interval: 0
       Value: true
   Enabled: true
@@ -262,5 +236,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1200
-  X: 1584
-  Y: 584
+  X: 1552
+  Y: 552

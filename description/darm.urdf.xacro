@@ -158,9 +158,7 @@
             <geometry> <mesh filename="package://darm_ros2/meshes/dock.stl" /> </geometry>
             <material name="rubber"/>
         </visual>
-        <collision>
-            <geometry> <mesh filename="package://darm_ros2/meshes/dock.stl" /> </geometry>
-        </collision>
+        <!-- No Collisions -->
     </link>
 
     <!-- JOINTS -->
