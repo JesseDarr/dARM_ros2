@@ -56,9 +56,7 @@ def generate_launch_description():
             '/world/basic/model/darm_ros2/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model',
             '/robot_description@std_msgs/msg/String[gz.msgs.StringMsg',
         ],
-        remappings = [
-            ('/world/basic/model/darm_ros2/joint_state', '/joint_states'),
-        ]
+        remappings = [('/world/basic/model/darm_ros2/joint_state', '/joint_states'),]
     )
 
     # Ros2_Control - Other Nodes

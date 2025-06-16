@@ -52,7 +52,7 @@ class PS5Teleop(Node):
 
         # Joint list (order matters – must match controller)
         self.joint_names = [
-            'joint_1_joint', 'joint_2_joint', 'joint_3_joint', 'forearm_joint',
+            'link_1_joint', 'link_2_joint', 'link_3_joint', 'forearm_joint',
             'differential_joint', 'gripper_joint', 'finger_1_joint', 'finger_2_joint'
         ]
 
@@ -80,10 +80,10 @@ class PS5Teleop(Node):
             return
 
         # Map left stick to joints 0 & 1 (demo)
-        #self.targets[0] = self.clamp(0, self.targets[0] + msg.axes[1] * self.step)
-        #self.targets[1] = self.clamp(1, self.targets[1] + msg.axes[0] * self.step)
+        self.targets[0] = self.clamp(0, self.targets[0] + msg.axes[1] * self.step)
+        self.targets[1] = self.clamp(1, self.targets[1] + msg.axes[0] * self.step)
         #self.targets[2] = self.clamp(2, self.targets[2] + msg.axes[4] * self.step)
-        self.targets[3] = self.clamp(3, self.targets[3] + msg.axes[3] * self.step)
+        #self.targets[3] = self.clamp(3, self.targets[3] + msg.axes[3] * self.step)
 
         self.cmd_pub.publish(Float64MultiArray(data=self.targets))
 
