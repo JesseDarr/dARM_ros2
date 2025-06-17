@@ -1,37 +1,36 @@
+# darm_test.launch.py
 import os
 import xacro
 from launch import LaunchDescription
-from launch.actions import ExecuteProcess
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 
+PKG         = 'darm_ros2'
+URDF_XACRO  = os.path.join(get_package_share_directory(PKG), 'description', 'darm.urdf.xacro')
+RVIZ_CONFIG = os.path.join(get_package_share_directory(PKG), 'rviz', 'darm.rviz')
+
 def generate_launch_description():
+    robot_description = xacro.process_file(URDF_XACRO).toxml()
 
-    # Specify the name of the package and path to xacro file within the package
-    pkg_name = 'darm_ros2'
-    file_subpath = 'description/darm.urdf.xacro'
-
-    # Use xacro to process the file
-    xacro_file = os.path.join(get_package_share_directory(pkg_name),file_subpath)
-    robot_description_raw = xacro.process_file(xacro_file).toxml()
-
-    # Configure robot state publisher node
-    node_robot_state_publisher = Node(
-        package = 'robot_state_publisher',
+    rsp_node = Node(
+        package    = 'robot_state_publisher',
         executable = 'robot_state_publisher',
-        output = 'screen',
-        parameters = [{'robot_description': robot_description_raw}]
+        output     = 'screen',
+        parameters = [{'robot_description': robot_description}]
     )
 
-    # Configure initial state node
-    node_darm_initial_state = Node(
-        package = 'darm_ros2',
-        executable = 'set_initial_joint_states.py',
-        output = 'screen'
+    jsp_gui_node = Node(
+        package    = 'joint_state_publisher_gui',
+        executable = 'joint_state_publisher_gui',
+        output     = 'screen'
     )
 
-    # Run the node
-    return LaunchDescription([
-        node_robot_state_publisher,
-        node_darm_initial_state
-    ])
+    rviz_node = Node(
+        package    = 'rviz2',
+        executable = 'rviz2',
+        arguments  = ['-d', RVIZ_CONFIG],
+        output     = 'screen',
+        emulate_tty = True
+    )
+
+    return LaunchDescription([rsp_node, jsp_gui_node, rviz_node])

@@ -3,7 +3,7 @@
 
     <transmission name="joint_1_tran">
         <type>transmission_interface/SimpleTransmission</type>
-        <joint name="joint_1_joint">
+        <joint name="link_1_joint">
             <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
         </joint>
         <actuator name="joint_1_actr">
@@ -15,7 +15,7 @@
     <transmission name="joint_2_tran">
         <type>transmission_interface/DifferentialTransmission</type>
 
-        <joint name="joint_2_joint">
+        <joint name="link_2_joint">
             <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
         </joint>
 
@@ -32,7 +32,7 @@
 
     <transmission name="joint_3_tran">
         <type>transmission_interface/SimpleTransmission</type>
-        <joint name="joint_3_joint">
+        <joint name="link_3_joint">
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="joint_3_actr">
