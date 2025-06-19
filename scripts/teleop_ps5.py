@@ -6,7 +6,7 @@ import rclpy
 from rclpy.node import Node
 from rclpy.parameter_client import AsyncParameterClient
 from sensor_msgs.msg import Joy, JointState
-from std_msgs.msg import Float64MultiArray
+from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
 def _get_urdf_limits(node: Node, names):
     cli = AsyncParameterClient(node, "robot_state_publisher")
@@ -33,34 +33,30 @@ def _get_urdf_limits(node: Node, names):
     return {n: lims.get(n, (-math.inf, math.inf)) for n in names}
 
 class PS5Teleop(Node):
-    STEP        = 0.05     # rad or m per jog tick
-    DEADMAN_BTN = 4        # L1 button index on DualSense
-    DEADZONE    = 0.05     # stick noise filter (∈ [0,1])
-    PREC        = 6         # decimal places
-    WIDTH       = 14        # column width for numbers
+    STEP        = 0.1    # rad (or m) per jog tick
+    DEADMAN_BTN = 4      # L1 on DualSense
+    DEADZONE    = 0.05   # stick dead-zone
+    PREC        = 6      # decimals in table
 
     def __init__(self):
         super().__init__("ps5_teleop")
 
         self.joint_names = [
-            "link_1_joint", "link_2_joint", "link_3_joint", "forearm_joint",
+            "link_1_joint", "link_2_joint", "link_3_joint", "forearm_joint", 
             "differential_joint", "gripper_joint", "finger_1_joint", "finger_2_joint",
         ]
-        self.active_idx = (0, 1)          # the two we jog for now
+        self.active_idx = (0, 1)                       # jog only these two
 
         self.limits  = _get_urdf_limits(self, self.joint_names)
         self.targets = [0.0] * len(self.joint_names)
         self.actual  = [0.0] * len(self.joint_names)
 
-        # table printing bookkeeping
         self._first_table = True
-        self._table_lines = len(self.active_idx) + 2   # hdr + bar + rows
+        self._table_lines = len(self.active_idx) + 2   # header + bar + rows
 
-        # ROS I/O
         self.create_subscription(JointState, "/joint_states", self._on_joint_state, 10)
         self.create_subscription(Joy, "/joy", self._on_joy, 10)
-        self.cmd_pub = self.create_publisher(Float64MultiArray, "/arm_controller/commands", 10)
-
+        self.cmd_pub = self.create_publisher(JointTrajectory, "/arm_controller/joint_trajectory", 10)
         self.get_logger().info("PS5 Tele-op ready")
 
     def _clamp(self, idx, value):
@@ -74,54 +70,71 @@ class PS5Teleop(Node):
                 self.actual[i] = pos[n]
 
     def _print_table(self):
-        if not self._first_table:
-            sys.stdout.write(f"\x1b[{self._table_lines}A")
+        # -------- gather all cell strings first --------
+        joints = self.joint_names
+        prec   = self.PREC
+
+        rows = {
+            "Current": [f"{v:.{prec}f}" for v in self.actual],
+            "Target" : [f"{v:.{prec}f}" for v in self.targets],
+            "Lower"  : [f"{self.limits[n][0]:.{prec}f}" for n in joints],
+            "Upper"  : [f"{self.limits[n][1]:.{prec}f}" for n in joints],
+        }
+
+        col_w = [
+            max(len(joints[i]),
+                *(len(r[i]) for r in rows.values()))
+            for i in range(len(joints))
+        ]
+
+        total_lines = 2 + len(rows)     # always 6 here
+        if hasattr(self, "_printed_once"):
+            sys.stdout.write(f"\x1b[{total_lines}A")
         else:
-            self._first_table = False
+            self._printed_once = True
 
-        num = f'{{:>{self.WIDTH}.{self.PREC}f}}'
-        hdr = (
-            f'{"Joint":<20} | '
-            f'{"Current":>{self.WIDTH}} | '
-            f'{"Target":>{self.WIDTH}} | '
-            f'{"Lower":>{self.WIDTH}} | '
-            f'{"Upper":>{self.WIDTH}}'
-        )
-        bar = "-" * len(hdr)
-        lines = [hdr, bar]
+        header = " " * 15
+        for i, name in enumerate(joints):
+            header += f"| {name:>{col_w[i]}} "
+        lines = [header, "-" * len(header)]
 
-        for i in self.active_idx:
-            lo, hi = self.limits[self.joint_names[i]]
-            lines.append(
-                f'{self.joint_names[i]:<20} | '
-                f'{num.format(self.actual[i])} | '
-                f'{num.format(self.targets[i])} | '
-                f'{num.format(lo)} | '
-                f'{num.format(hi)}'
-            )
+        for label, values in rows.items():
+            line = f"{label:<15}"
+            for i, val in enumerate(values):
+                line += f"| {val:>{col_w[i]}} "
+            lines.append(line)
 
         sys.stdout.write("\n".join(lines) + "\n")
         sys.stdout.flush()
 
     def _on_joy(self, joy: Joy):
-        if not joy.buttons[self.DEADMAN_BTN]:
+        if not joy.buttons[self.DEADMAN_BTN]:         # dead-man switch
             return
-        
-        # apply dead-zone
+
+        # apply stick dead-zone
         ax_y = 0.0 if abs(joy.axes[1]) < self.DEADZONE else joy.axes[1]
         ax_x = 0.0 if abs(joy.axes[0]) < self.DEADZONE else joy.axes[0]
 
-        # left-stick Y/X → joints 0/1
-        self.targets[0] = self._clamp(0, self.targets[0] + joy.axes[1] * self.STEP)
-        self.targets[1] = self._clamp(1, self.targets[1] + joy.axes[0] * self.STEP)
+        self.targets[0] = self._clamp(0, self.actual[0] + ax_y * self.STEP)
+        self.targets[1] = self._clamp(1, self.actual[1] + ax_x * self.STEP)
 
-        self.cmd_pub.publish(Float64MultiArray(data=self.targets))
+        # ------------ one-point trajectory ------------
+        traj = JointTrajectory()
+        traj.joint_names = self.joint_names             # send all joints
+
+        pt = JointTrajectoryPoint()
+        pt.positions = self.targets[:]                  # copy full list
+        pt.time_from_start.sec = 0
+        pt.time_from_start.nanosec = 100_000_000        # reach in 0.1 s
+        traj.points.append(pt)
+
+        self.cmd_pub.publish(traj)
         self._print_table()
 
 def main(args=None):
-    rclpy.init(args=args)
-    node = PS5Teleop()
     try:
+        rclpy.init(args=args)
+        node = PS5Teleop()
         rclpy.spin(node)
     finally:
         node.destroy_node()

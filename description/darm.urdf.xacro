@@ -148,7 +148,7 @@
         </collision>
     </link>
 
-    <link name="dock">
+    <link name="dock">  
         <inertial>
             <origin xyz="-6.06353067490172E-08 0.0224446345139935 -0.212157844299707" rpy="0 0 0" />
             <mass value="0.527745087881467" />
@@ -173,7 +173,7 @@
         <parent link="base_link" />
         <child link="link_1" />
         <axis xyz="0 0 1"/>
-        <limit lower="${-pi - 0.5}" upper="${pi + 0.5}" effort="20" velocity="2" />
+        <limit lower="${-pi - 0.5}" upper="${pi + 0.5}" effort="5" velocity="2" />
         <dynamics friction="0.2" />
     </joint>
 
@@ -182,7 +182,7 @@
         <parent link="link_1" />
         <child link="link_2" />
         <axis xyz="1 0 0"/>
-        <limit lower="-0.001" upper="${226 * pi / 180}" effort="40" velocity="2" />
+        <limit lower="-0.001" upper="${226 * pi / 180}" effort="10" velocity="2" />
         <dynamics friction="0.2" />
     </joint>
 
@@ -191,7 +191,7 @@
         <parent link="link_2" />
         <child link="link_3" />
         <axis xyz="0 0 1" />
-        <limit lower="${-pi - 0.5}" upper="${pi + 0.5}" effort="20" velocity="2" />
+        <limit lower="${-pi - 0.5}" upper="${pi + 0.5}" effort="5" velocity="2" />
         <dynamics friction="0.2" />
     </joint>
 
@@ -200,7 +200,7 @@
         <parent link="link_3" />
         <child link="forearm" />
         <axis xyz="-1 0 0"/>
-        <limit lower="-0.001" upper="${245.8 * pi / 180}" effort="20" velocity="2" />
+        <limit lower="-0.001" upper="${245.8 * pi / 180}" effort="5" velocity="2" />
         <dynamics friction="0.2" />
     </joint>
 
@@ -209,7 +209,7 @@
         <parent link="forearm" />
         <child link="differential" />
         <axis xyz="1 0 0"/>
-        <limit lower="${-110 * pi / 180}" upper="${110 * pi / 180}" effort="8" velocity="2" />
+        <limit lower="${-110 * pi / 180}" upper="${110 * pi / 180}" effort="2" velocity="2" />
         <dynamics friction="0.2" />
     </joint>
 
@@ -218,7 +218,7 @@
         <parent link="differential" />
         <child link="gripper" />
         <axis xyz="0 0 -1" />
-        <limit lower="-3.141593" upper="3.141593" effort="8" velocity="2" />
+        <limit lower="-3.141593" upper="3.141593" effort="2" velocity="2" />
         <dynamics friction="0.2" />
     </joint>
 
@@ -227,8 +227,8 @@
         <parent link="gripper" />
         <child link="finger_1" />
         <axis xyz="1 0 0"/>
-        <limit lower="-0.001" upper="0.025" effort="2" velocity="0.5" />
-        <dynamics friction="0.1" />
+        <limit lower="-0.001" upper="0.025" effort="1" velocity="0.5" />
+        <dynamics friction="0.2" />
     </joint>
 
     <joint name="finger_2_joint" type="prismatic">
@@ -236,8 +236,8 @@
         <parent link="gripper" />
         <child link="finger_2" />
         <axis xyz="-1 0 0"/>
-        <limit lower="-0.001" upper="0.025" effort="2" velocity="0.5" />
-        <dynamics friction="0.1" />
+        <limit lower="-0.001" upper="0.025" effort="1" velocity="0.5" />
+        <dynamics friction="0.2" />
     </joint>
 
     <joint name="dock_joint" type="fixed">
