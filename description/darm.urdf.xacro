@@ -227,7 +227,7 @@
         <parent link="gripper" />
         <child link="finger_1" />
         <axis xyz="1 0 0"/>
-        <limit lower="-0.001" upper="0.025" effort="1" velocity="0.5" />
+        <limit lower="-0.001" upper="0.025" effort="1" velocity="1" />
         <dynamics friction="0.2" />
     </joint>
 
@@ -236,7 +236,7 @@
         <parent link="gripper" />
         <child link="finger_2" />
         <axis xyz="-1 0 0"/>
-        <limit lower="-0.001" upper="0.025" effort="1" velocity="0.5" />
+        <limit lower="-0.001" upper="0.025" effort="1" velocity="1" />
         <dynamics friction="0.2" />
     </joint>
 

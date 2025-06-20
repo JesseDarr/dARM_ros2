@@ -33,7 +33,7 @@ def _get_urdf_limits(node: Node, names):
     return {n: lims.get(n, (-math.inf, math.inf)) for n in names}
 
 class PS5Teleop(Node):
-    STEP        = 0.1    # rad (or m) per jog tick
+    STEP        = 0.4    # rad (or m) per jog tick
     DEADMAN_BTN = 4      # L1 on DualSense
     DEADZONE    = 0.05   # stick dead-zone
     PREC        = 6      # decimals in table
@@ -120,12 +120,11 @@ class PS5Teleop(Node):
 
         # ------------ one-point trajectory ------------
         traj = JointTrajectory()
-        traj.joint_names = self.joint_names             # send all joints
+        traj.joint_names = self.joint_names                 # send all joints
 
         pt = JointTrajectoryPoint()
-        pt.positions = self.targets[:]                  # copy full list
-        pt.time_from_start.sec = 0
-        pt.time_from_start.nanosec = 100_000_000        # reach in 0.1 s
+        pt.positions = self.targets[:]                      # copy full list
+        pt.time_from_start.nanosec = 300_000_000
         traj.points.append(pt)
 
         self.cmd_pub.publish(traj)
