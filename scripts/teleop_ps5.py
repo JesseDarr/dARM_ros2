@@ -54,7 +54,7 @@ class PS5Teleop(Node):
     DEADZONE    = 0.05   # stick dead-zone
     PREC        = 6      # decimals in table
     SQR_BTN     = 0 
-    CRSS_BTN    = 1   
+    CRSS_BTN    = 1
     CRCL_BTN    = 2
     TRGL_BTN    = 3
     LEFT_BMPR   = 4
