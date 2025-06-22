@@ -33,8 +33,9 @@ def _get_urdf_limits(node: Node, names):
     return {n: lims.get(n, (-math.inf, math.inf)) for n in names}
 
 class PS5Teleop(Node):
-    STEP        = 0.4    # rad (or m) per jog tick
+    STEP        = 0.8    # rad (or m) per jog tick
     DEADMAN_BTN = 4      # L1 on DualSense
+    TOGGLE_BTN  = 5      # left stick toggle button
     DEADZONE    = 0.05   # stick dead-zone
     PREC        = 6      # decimals in table
 
@@ -45,14 +46,10 @@ class PS5Teleop(Node):
             "link_1_joint", "link_2_joint", "link_3_joint", "forearm_joint", 
             "differential_joint", "gripper_joint", "finger_1_joint", "finger_2_joint",
         ]
-        self.active_idx = (0, 1)                       # jog only these two
 
         self.limits  = _get_urdf_limits(self, self.joint_names)
         self.targets = [0.0] * len(self.joint_names)
         self.actual  = [0.0] * len(self.joint_names)
-
-        self._first_table = True
-        self._table_lines = len(self.active_idx) + 2   # header + bar + rows
 
         self.create_subscription(JointState, "/joint_states", self._on_joint_state, 10)
         self.create_subscription(Joy, "/joy", self._on_joy, 10)
@@ -111,24 +108,42 @@ class PS5Teleop(Node):
         if not joy.buttons[self.DEADMAN_BTN]:         # dead-man switch
             return
 
+        # Get raw joystick input values
+        raw_left_y = joy.axes[1]
+        raw_left_x = joy.axes[0]
+        raw_right_y = joy.axes[5]
+        raw_right_x = joy.axes[2]
+
         # apply stick dead-zone
-        ax_y = 0.0 if abs(joy.axes[1]) < self.DEADZONE else joy.axes[1]
-        ax_x = 0.0 if abs(joy.axes[0]) < self.DEADZONE else joy.axes[0]
+        left_y  = 0.0 if abs(raw_left_y)  < self.DEADZONE else raw_left_y
+        left_x  = 0.0 if abs(raw_left_x)  < self.DEADZONE else raw_left_x
+        right_y = 0.0 if abs(raw_right_y) < self.DEADZONE else raw_right_y
+        right_x = 0.0 if abs(raw_right_x) < self.DEADZONE else raw_right_x
 
-        self.targets[0] = self._clamp(0, self.actual[0] + ax_y * self.STEP)
-        self.targets[1] = self._clamp(1, self.actual[1] + ax_x * self.STEP)
+        # Set Left Stick tagets - tottle joints with toggle button
+        if joy.buttons[self.TOGGLE_BTN]:
+            self.targets[4] = self._clamp(4, self.actual[4] + left_y * self.STEP)
+            self.targets[5] = self._clamp(5, self.actual[5] + left_x * self.STEP)
+        else:
+            self.targets[0] = self._clamp(0, self.actual[0] + left_y * self.STEP)
+            self.targets[1] = self._clamp(1, self.actual[1] + left_x * self.STEP)
 
-        # ------------ one-point trajectory ------------
+        # Set Right Stick targets
+        self.targets[2] = self._clamp(2, self.actual[2] + right_y * self.STEP)
+        self.targets[3] = self._clamp(3, self.actual[3] - right_x * self.STEP)
+
+        # Build single point trajectory for each joint
         traj = JointTrajectory()
-        traj.joint_names = self.joint_names                 # send all joints
+        traj.joint_names = self.joint_names              
 
         pt = JointTrajectoryPoint()
-        pt.positions = self.targets[:]                      # copy full list
+        pt.positions = self.targets[:]                     
         pt.time_from_start.nanosec = 300_000_000
         traj.points.append(pt)
 
         self.cmd_pub.publish(traj)
-        self._print_table()
+        
+        self._print_table() # Print table
 
 def main(args=None):
     try:

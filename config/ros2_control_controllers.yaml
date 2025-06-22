@@ -29,7 +29,3 @@ arm_controller:
     allow_partial_joints_goal: true      # send only the joints you jog
     allow_integration_in_goal_trajectories: true
     allow_nonzero_velocity_at_trajectory_end: true
-
-    constraints:
-      stopped_velocity_tolerance: 0.5
-      goal_time: 0.3                    # seconds 
