@@ -34,8 +34,7 @@ def _get_urdf_limits(node: Node, names):
 
 class PS5Teleop(Node):
     STEP        = 0.8    # rad (or m) per jog tick
-    DEADMAN_BTN = 4      # L1 on DualSense
-    TOGGLE_BTN  = 5      # left stick toggle button
+    FINGER_STEP = 0.01   # metres per full trigger pull
     DEADZONE    = 0.05   # stick dead-zone
     PREC        = 6      # decimals in table
 
@@ -105,14 +104,16 @@ class PS5Teleop(Node):
         sys.stdout.flush()
 
     def _on_joy(self, joy: Joy):
-        if not joy.buttons[self.DEADMAN_BTN]:         # dead-man switch
+        if not joy.buttons[4]:         # dead-man switch
             return
 
         # Get raw joystick input values
-        raw_left_y = joy.axes[1]
-        raw_left_x = joy.axes[0]
+        raw_left_y  = joy.axes[1]
+        raw_left_x  = joy.axes[0]
         raw_right_y = joy.axes[5]
         raw_right_x = joy.axes[2]
+        raw_l2      = joy.axes[3]
+        raw_r2      = joy.axes[4]
 
         # apply stick dead-zone
         left_y  = 0.0 if abs(raw_left_y)  < self.DEADZONE else raw_left_y
@@ -120,17 +121,28 @@ class PS5Teleop(Node):
         right_y = 0.0 if abs(raw_right_y) < self.DEADZONE else raw_right_y
         right_x = 0.0 if abs(raw_right_x) < self.DEADZONE else raw_right_x
 
+        # convert trigger values
+        l2 = 0.5 * (1.0 - raw_l2)
+        r2 = 0.5 * (1.0 - raw_r2)
+
         # Set Left Stick tagets - tottle joints with toggle button
-        if joy.buttons[self.TOGGLE_BTN]:
-            self.targets[4] = self._clamp(4, self.actual[4] + left_y * self.STEP)
-            self.targets[5] = self._clamp(5, self.actual[5] + left_x * self.STEP)
+        if joy.buttons[5]:
+            self.targets[4] = self._clamp(4, self.actual[4] + left_x * self.STEP)   # Diff Joint
+            self.targets[5] = self._clamp(5, self.actual[5] + left_y * self.STEP)   # Gripper Joint
         else:
-            self.targets[0] = self._clamp(0, self.actual[0] + left_y * self.STEP)
-            self.targets[1] = self._clamp(1, self.actual[1] + left_x * self.STEP)
+            self.targets[0] = self._clamp(0, self.actual[0] + left_y * self.STEP)   # Joint 1
+            self.targets[1] = self._clamp(1, self.actual[1] + left_x * self.STEP)   # Joint 2
 
         # Set Right Stick targets
-        self.targets[2] = self._clamp(2, self.actual[2] + right_y * self.STEP)
-        self.targets[3] = self._clamp(3, self.actual[3] - right_x * self.STEP)
+        self.targets[2] = self._clamp(2, self.actual[2] + right_y * self.STEP)      # Joint 3
+        self.targets[3] = self._clamp(3, self.actual[3] - right_x * self.STEP)      # Forearm Joint
+
+        # Fingers
+        delta = (r2 - l2) * self.FINGER_STEP        # + = open, − = close
+        if abs(delta) > 1e-6:                       # ignore tiny noise
+            self.targets[6] = self._clamp(6, self.actual[6] + delta)   # finger_1
+            self.targets[7] = self._clamp(7, self.actual[7] + delta)   # finger_2 (opposite)
+
 
         # Build single point trajectory for each joint
         traj = JointTrajectory()
