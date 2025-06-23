@@ -53,12 +53,15 @@ class PS5Teleop(Node):
     FINGER_STEP = 0.01   # metres per full trigger pull
     DEADZONE    = 0.05   # stick dead-zone
     PREC        = 6      # decimals in table
-    SQR_BTN     = 0 
+
+    SQRE_BTN    = 0 
     CRSS_BTN    = 1
     CRCL_BTN    = 2
     TRGL_BTN    = 3
     LEFT_BMPR   = 4
     RGHT_BMPR   = 5
+    LEFT_TRGR   = 6
+    RGHT_TRGR   = 7
 
     def __init__(self):
         super().__init__("ps5_teleop")
@@ -141,17 +144,19 @@ class PS5Teleop(Node):
         # Publish trajectory
         self.cmd_pub.publish(traj)
 
+    def _pose_requested(self, joy: Joy) -> str | None:
+        if joy.buttons[self.CRSS_BTN]: return "home"
+        if joy.buttons[self.TRGL_BTN]: return "vert"
+        if joy.buttons[self.SQRE_BTN]: return "left"
+        if joy.buttons[self.CRCL_BTN]: return "rght"
+        return None
+
     def _on_joy(self, joy: Joy):
-        if not joy.buttons[self.LEFT_BMPR]: # dead-man switch
+        if not joy.buttons[self.LEFT_TRGR]: # dead-man switch
             return
 
-        # Quick Poses
-        pose_pressed = None
-        if joy.buttons[self.CRSS_BTN]: pose_pressed = 'home'
-        if joy.buttons[self.TRGL_BTN]: pose_pressed = 'vert'
-        if joy.buttons[self.SQR_BTN]:  pose_pressed = 'left'
-        if joy.buttons[self.CRCL_BTN]: pose_pressed = 'rght'
-        
+        # Handle Quick Poses if button is pressed
+        pose_pressed = self._pose_requested(joy)
         if pose_pressed:
             self.targets[:] = self.pose_dict[pose_pressed][:]
 
@@ -162,46 +167,39 @@ class PS5Teleop(Node):
     
         # Get raw joystick input values
         raw_left_y = joy.axes[1]
-        raw_left_x = joy.axes[0]
-        raw_rght_y = joy.axes[5]
         raw_rght_x = joy.axes[2]
-        raw_left_t = joy.axes[3]
-        raw_rght_t = joy.axes[4]
+        raw_dpad_x = joy.axes[6]
 
         # apply stick dead-zone
         left_y = 0.0 if abs(raw_left_y) < self.DEADZONE else raw_left_y
-        left_x = 0.0 if abs(raw_left_x) < self.DEADZONE else raw_left_x
-        rght_y = 0.0 if abs(raw_rght_y) < self.DEADZONE else raw_rght_y
         rght_x = 0.0 if abs(raw_rght_x) < self.DEADZONE else raw_rght_x
-        # convert trigger values
-        left_t = 1.0 - raw_left_t
-        rght_t = 1.0 - raw_rght_t
 
-        # Set Left Stick tagets - tottle joints with toggle button
-        if joy.buttons[self.RGHT_BMPR]:
-            self.targets[4] = self._clamp(4, self.actual[4] + left_x * self.STEP)   # Diff Joint
-            self.targets[5] = self._clamp(5, self.actual[5] + left_y * self.STEP)   # Gripper Joint
-        else:
+        # Are bumpers pressed?
+        left_on = joy.buttons[self.LEFT_BMPR]
+        rght_on = joy.buttons[self.RGHT_BMPR]
+
+        # Set Joint targets based on bumper values and stick input
+        if left_on == rght_on:
             self.targets[0] = self._clamp(0, self.actual[0] + left_y * self.STEP)   # Joint 1
-            self.targets[1] = self._clamp(1, self.actual[1] + left_x * self.STEP)   # Joint 2
-
-        # Set Right Stick targets
-        self.targets[2] = self._clamp(2, self.actual[2] + rght_y * self.STEP)      # Joint 3
-        self.targets[3] = self._clamp(3, self.actual[3] - rght_x * self.STEP)      # Forearm Joint
-
+            self.targets[1] = self._clamp(1, self.actual[1] + rght_x * self.STEP)   # Joint 2
+        elif left_on:
+            self.targets[2] = self._clamp(2, self.actual[2] + left_y * self.STEP)   # Joint 3
+            self.targets[3] = self._clamp(3, self.actual[3] - rght_x * self.STEP)   # Forearm Joint
+        elif rght_on:
+            self.targets[4] = self._clamp(4, self.actual[4] + rght_x * self.STEP)   # Diff Joint
+            self.targets[5] = self._clamp(5, self.actual[5] + left_y * self.STEP)   # Gripper Joint
+        
         # Set Finger targets
-        delta = (rght_t - left_t) * self.FINGER_STEP        # + = open, − = close
-        if abs(delta) > 1e-6:                       # ignore tiny noise
-            self.targets[6] = self._clamp(6, self.actual[6] + delta)   # finger_1
-            self.targets[7] = self._clamp(7, self.actual[7] + delta)   # finger_2 (opposite)
+        self.targets[6] = self._clamp(6, self.actual[6] + raw_dpad_x * self.FINGER_STEP)   # finger_1
+        self.targets[7] = self._clamp(7, self.actual[7] + raw_dpad_x * self.FINGER_STEP)   # finger_2 (opposite)
 
         # Publish trajectory and print table
         self._publish_traj(300_000_000)         
         self._print_table()
 
-def main(args=None):
+def main():
     try:
-        rclpy.init(args=args)
+        rclpy.init(args = None)
         node = PS5Teleop()
         rclpy.spin(node)
     finally:
