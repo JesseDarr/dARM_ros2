@@ -72,7 +72,7 @@ def generate_launch_description():
     ]
 
     # Joy Stick
-    joy_node = Node(
+    joy = Node(
         package    = 'joy',
         executable = 'joy_node',
         name       = 'joy_node',
@@ -85,7 +85,7 @@ def generate_launch_description():
     )
 
     # Teleop (remote operations)
-    teleop_node = Node(
+    teleop = Node(
         package     = 'darm_ros2',
         executable  = 'teleop_ps5.py',
         name        = 'teleop_ps5',
@@ -116,8 +116,8 @@ def generate_launch_description():
         rviz,
 
         # Joystick + Teleop
-        joy_node,
-        teleop_node,
+        joy,
+        teleop,
 
         # ROS 2 Control
         RegisterEventHandler(

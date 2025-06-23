@@ -1,11 +1,11 @@
 controller_manager:
   ros__parameters:
-    update_rate: 500 
+    update_rate: 500     
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
-    arm_controller:
-      type: position_controllers/JointGroupPositionController
+    arm_controller:                     
+      type: joint_trajectory_controller/JointTrajectoryController
 
 joint_state_broadcaster:
   ros__parameters:
@@ -21,14 +21,11 @@ arm_controller:
       - differential_joint
       - gripper_joint
       - finger_1_joint
-      - finger_2_joint      
-    publish_rate: 50
-    gains:
-      link_1_joint:      {p: 100.0, i: 0.01, d: 10.0}
-      link_2_joint:      {p: 100.0, i: 0.01, d: 10.0}
-      link_3_joint:      {p: 100.0, i: 0.01, d: 10.0}
-      forearm_joint:      {p: 100.0, i: 0.01, d: 10.0}
-      differential_joint: {p: 100.0, i: 0.01, d: 10.0}
-      gripper_joint:      {p: 100.0, i: 0.01, d: 10.0}
-      finger_1_joint:     {p: 100.0, i: 0.01, d: 10.0}
-      finger_2_joint:     {p: 100.0, i: 0.01, d: 10.0}
+      - finger_2_joint
+
+    command_interfaces: ["position"]     
+    state_interfaces:   ["position"]
+
+    allow_partial_joints_goal: true      # send only the joints you jog
+    allow_integration_in_goal_trajectories: true
+    allow_nonzero_velocity_at_trajectory_end: true
