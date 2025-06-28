@@ -9,7 +9,7 @@ install(
 )
 
 install(
-  PROGRAMS scripts/teleop_ps5.py
+  PROGRAMS scripts/teleop_ps5.py scripts/mock_odrive.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
