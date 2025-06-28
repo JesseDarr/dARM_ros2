@@ -1,10 +1,11 @@
 import os
-import xacro
 from launch import LaunchDescription
-from launch.actions import SetEnvironmentVariable,IncludeLaunchDescription, RegisterEventHandler
+from launch.actions import SetEnvironmentVariable, IncludeLaunchDescription, RegisterEventHandler
 from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
+from launch.substitutions import Command
+from launch_ros.parameter_descriptions import ParameterValue
 from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
@@ -16,15 +17,18 @@ def generate_launch_description():
     rviz_path  = os.path.join(get_package_share_directory(pkg_name), 'rviz', 'darm.rviz')
     world_path = os.path.join(get_package_share_directory(pkg_name), 'worlds', 'basic.sdf')
     model_path = os.path.join(get_package_share_directory(pkg_name), 'meshes')
-    xacro_file = os.path.join(get_package_share_directory(pkg_name), 'description/darm.urdf.xacro')    
-    robot_desc = xacro.process_file(xacro_file).toxml()
+    xacro_file = os.path.join(get_package_share_directory(pkg_name), 'description/darm.urdf.xacro')
 
-    # Robot State Publisher
+    # Robot State Publisher (ODrive-only URDF)
+    robot_description_cmd = Command(['xacro', xacro_file])
+    robot_description = ParameterValue(robot_description_cmd, value_type=str)
     robot_state_publisher = Node(
         package    = 'robot_state_publisher',
         executable = 'robot_state_publisher',
         output     = 'screen',
-        parameters = [{'robot_description':  robot_desc}, {'publish_robot_description': True}, {'use_sim_time': True}]
+        parameters = [{'robot_description':  robot_description},
+                      {'publish_robot_description': True},
+                      {'use_sim_time': True}]
     )
 
     # Gazebo model path
@@ -60,8 +64,8 @@ def generate_launch_description():
         remappings = [('/world/basic/model/darm_ros2/joint_state', '/joint_states'),]
     )
 
-    # Ros2_Control - Other Nodes
-    controller_names = ['joint_state_broadcaster', 'arm_controller', ]
+    # ROS2_Control - joint_state_broadcaster and arm_controller
+    controller_names = ['joint_state_broadcaster', 'arm_controller']
     spawner_nodes    = [
         Node(
             package    = 'controller_manager',
@@ -91,19 +95,24 @@ def generate_launch_description():
         name        = 'teleop_ps5',
         output      = 'screen',
         emulate_tty = True,
-        arguments   = [
-            '--ros-args',                
-            '--log-level', 'teleop_ps5:=debug'  
-        ],
+        arguments   = ['--ros-args', '--log-level', 'teleop_ps5:=debug'],
     )
 
     # RVIZ2
     rviz = Node(
-        package    = 'rviz2',
-        executable = 'rviz2',
-        arguments  = ['-d', rviz_path],
-        output     = 'screen',
+        package     = 'rviz2',
+        executable  = 'rviz2',
+        arguments   = ['-d', rviz_path],
+        output      = 'screen',
         emulate_tty = True
+    )
+
+    # Mock ODrive (always on)
+    mock_odrive = Node(
+        package    = 'darm_ros2',
+        executable = 'mock_odrive.py',
+        name       = 'mock_odrive',
+        output     = 'screen'
     )
 
     # Run the nodes
@@ -115,9 +124,10 @@ def generate_launch_description():
         spawn_entity,
         rviz,
 
-        # Joystick + Teleop
+        # Joystick, Teleop, Mock ODrive
         joy,
         teleop,
+        mock_odrive,
 
         # ROS 2 Control
         RegisterEventHandler(
