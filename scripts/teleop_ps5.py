@@ -197,11 +197,13 @@ class PS5Teleop(Node):
         self._publish_traj(300_000_000)         
         self._print_table()
 
-def main():
+def main() -> None:
     try:
-        rclpy.init(args = None)
+        rclpy.init()
         node = PS5Teleop()
         rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
     finally:
         node.destroy_node()
         rclpy.shutdown()

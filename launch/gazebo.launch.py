@@ -1,11 +1,10 @@
 import os
+import xacro
 from launch import LaunchDescription
 from launch.actions import SetEnvironmentVariable, IncludeLaunchDescription, RegisterEventHandler
 from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
-from launch.substitutions import Command
-from launch_ros.parameter_descriptions import ParameterValue
 from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
@@ -18,17 +17,27 @@ def generate_launch_description():
     world_path = os.path.join(get_package_share_directory(pkg_name), 'worlds', 'basic.sdf')
     model_path = os.path.join(get_package_share_directory(pkg_name), 'meshes')
     xacro_file = os.path.join(get_package_share_directory(pkg_name), 'description/darm.urdf.xacro')
+    robot_desc = xacro.process_file(xacro_file).toxml()
 
-    # Robot State Publisher (ODrive-only URDF)
-    robot_description_cmd = Command(['xacro', xacro_file])
-    robot_description = ParameterValue(robot_description_cmd, value_type=str)
+    # Robot State Publisher
     robot_state_publisher = Node(
         package    = 'robot_state_publisher',
         executable = 'robot_state_publisher',
         output     = 'screen',
-        parameters = [{'robot_description':  robot_description},
-                      {'publish_robot_description': True},
-                      {'use_sim_time': True}]
+        parameters = [
+            {'robot_description':  robot_desc},
+            {'publish_robot_description': True},
+            {'use_sim_time': True}
+        ]
+    )
+    
+    # Joint State Publisher
+    joint_state_publisher = Node(
+        package    = 'joint_state_publisher',
+        executable = 'joint_state_publisher',
+        name       = 'joint_state_publisher',
+        output     = 'screen',
+        parameters = [{'use_sim_time': True}]
     )
 
     # Gazebo model path
@@ -62,6 +71,17 @@ def generate_launch_description():
             '/robot_description@std_msgs/msg/String[gz.msgs.StringMsg',
         ],
         remappings = [('/world/basic/model/darm_ros2/joint_state', '/joint_states'),]
+    )
+
+    # ROS2 Control - controller manager
+    ros2_control = Node(
+        package    = 'controller_manager',
+        executable = 'ros2_control_node',   # <- THIS is the controller manager
+        output     = 'screen',
+        parameters = [
+            {'robot_description': robot_desc},  # URDF for transmission parsing
+            {'use_sim_time': True}
+        ]
     )
 
     # ROS2_Control - joint_state_broadcaster and arm_controller
@@ -114,20 +134,20 @@ def generate_launch_description():
         name       = 'mock_odrive',
         output     = 'screen'
     )
-
+    
     # Run the nodes
     return LaunchDescription([
+        mock_odrive,                  # start CAN sim early
         set_gazebo_model_path,
-        gazebo,
-        robot_state_publisher,
-        bridge,
-        spawn_entity,
-        rviz,
-
-        # Joystick, Teleop, Mock ODrive
-        joy,
-        teleop,
-        mock_odrive,
+        gazebo,                       # physics engine
+        ros2_control,
+        robot_state_publisher,        # TF tree
+        joint_state_publisher,        # zero joint-states
+        bridge,                       # clock + joint_state relay
+        spawn_entity,                 # inject robo
+        rviz,                         # visualise once data flows
+        joy,                          # input
+        teleop,                       # high-level commands
 
         # ROS 2 Control
         RegisterEventHandler(
