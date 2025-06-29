@@ -197,7 +197,7 @@ class PS5Teleop(Node):
         self._publish_traj(300_000_000)         
         self._print_table()
 
-def main() -> None:
+def main():
     try:
         rclpy.init()
         node = PS5Teleop()
@@ -206,7 +206,6 @@ def main() -> None:
         pass
     finally:
         node.destroy_node()
-        rclpy.shutdown()
 
 if __name__ == "__main__":
     main()

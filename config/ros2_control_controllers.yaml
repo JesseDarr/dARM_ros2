@@ -3,26 +3,25 @@ controller_manager:
     update_rate: 500
     use_sim_time: true
 
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+    arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
 joint_state_broadcaster:
   ros__parameters:
-    type: joint_state_broadcaster/JointStateBroadcaster   # ← moved ↓ here
-    publish_rate: 50
+    publish_rate: 50.0
 
 arm_controller:
   ros__parameters:
-    type: joint_trajectory_controller/JointTrajectoryController   # ← moved
-    joints:
-      - link_1_joint
-      - link_2_joint
-      - link_3_joint
-      - forearm_joint
-      - differential_joint
-      - gripper_joint
-      - finger_1_joint
-      - finger_2_joint
+    joints: [link_1_joint, 
+             link_2_joint, 
+             link_3_joint,
+             forearm_joint, 
+             differential_joint,
+             gripper_joint, 
+             finger_1_joint, 
+             finger_2_joint]
     command_interfaces: ["position"]
     state_interfaces:   ["position"]
-
-    allow_partial_joints_goal:               true
-    allow_integration_in_goal_trajectories:  true
-    allow_nonzero_velocity_at_trajectory_end: true
+    allow_partial_joints_goal: true

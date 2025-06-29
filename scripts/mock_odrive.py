@@ -2,37 +2,61 @@
 import struct, can, rclpy
 from rclpy.node import Node
 
-CAN_IF            = "can0"      # can interface name
-NODE_IDS          = range(8)    # eight virtual ODrives, IDs 0-7
-HEARTBEAT_ID_BASE = 0x001       # heartbeat base ID
-ENCODER_ID_BASE   = 0x009       # encoder-estimate base ID
-SEND_PERIOD_S     = 0.01        # 100 Hz
+NODE_IDS        = range(8)         # node-ids 0-7
+HZ              = 100.0
+DT              = 1.0 / HZ
+CMD_HEARTBEAT   = 0x01
+CMD_ENCODER     = 0x09
+CMD_SET_INPUT   = 0x0C             # position command sent by controller
+
+def arb_id(node_id: int, cmd: int) -> int:
+    """CAN-Simple 11-bit ID: upper 6 bits node-id, lower 5 bits command."""
+    return (node_id << 5) | cmd
 
 class MockOdrive(Node):
     def __init__(self):
         super().__init__("mock_odrive")
-        self.bus = can.interface.Bus(CAN_IF, bustype = "socketcan")
+
+        self.bus      = can.interface.Bus(channel="can0", bustype="socketcan")
+        self.notifier = can.Notifier(self.bus, [self._on_can_frame])
+
+        # per-axis position store
         self.position = {nid: 0.0 for nid in NODE_IDS}
-        self.create_timer(SEND_PERIOD_S, self.send_frames)
 
-    def send_frames(self):
-        for node_id in NODE_IDS:
-            # Heartbeat
-            self.bus.send(can.Message(
-                arbitration_id = HEARTBEAT_ID_BASE | node_id,
-                is_extended_id = False,
-                data           = b"\x00\x01\x00\x00"        # axis_error, axis_state, ctrl_error, enc_error
-            ))      
+        # timer for periodic TX (heartbeat + encoder estimates)
+        self.create_timer(DT, self._publish)
 
-            # Encoder Estimate (float32 position, float32 velocity)
-            self.bus.send(can.Message(
-                arbitration_id = ENCODER_ID_BASE | node_id,
-                is_extended_id = False,
-                data           = struct.pack("<ff", self.position[node_id], 0.0)
-            ))
+    def _on_can_frame(self, msg: can.Message):
+        node_id = (msg.arbitration_id >> 5) & 0x3F
+        cmd     =  msg.arbitration_id        & 0x1F
 
-            # advance fake position
-            self.position[node_id] = (self.position[node_id] + 0.01) % 6.28318
+        if cmd == CMD_SET_INPUT and node_id in NODE_IDS:
+            self.position[node_id] = struct.unpack_from("<f", msg.data)[0]             # payload layout: <f H h B>  (pos, vel_ff, current_ff, ctrl_mode)
+
+    def _publish(self):
+        for nid in NODE_IDS:
+            pos = self.position[nid]
+            vel = 0.0                        # simple: velocity unknown/zero
+
+            # 1) Heartbeat (axis_state = CLOSED_LOOP_CONTROL)
+            hb = struct.pack("<IBBBx", 0, 8, 0, 1)
+            self.bus.send(
+                can.Message(
+                    arbitration_id=arb_id(nid, CMD_HEARTBEAT),
+                    is_extended_id=False,
+                    data=hb,
+                )
+            )
+
+            # 2) Encoder estimates
+            enc = struct.pack("<ff", pos, vel)
+            self.bus.send(
+                can.Message(
+                    arbitration_id=arb_id(nid, CMD_ENCODER),
+                    is_extended_id=False,
+                    data=enc,
+                )
+            )
 
 def main():
     try:
@@ -43,7 +67,6 @@ def main():
         pass
     finally:
         node.destroy_node()
-        rclpy.shutdown()
 
 if __name__ == "__main__":
     main()

@@ -18,7 +18,8 @@ def generate_launch_description():
     model_path = os.path.join(get_package_share_directory(pkg_name), 'meshes')
     xacro_file = os.path.join(get_package_share_directory(pkg_name), 'description/darm.urdf.xacro')
     robot_desc = xacro.process_file(xacro_file).toxml()
-
+    ctlrs_yaml = os.path.join(get_package_share_directory(pkg_name), 'config', 'ros2_control_controllers.yaml')
+    
     # Robot State Publisher
     robot_state_publisher = Node(
         package    = 'robot_state_publisher',
@@ -29,15 +30,6 @@ def generate_launch_description():
             {'publish_robot_description': True},
             {'use_sim_time': True}
         ]
-    )
-    
-    # Joint State Publisher
-    joint_state_publisher = Node(
-        package    = 'joint_state_publisher',
-        executable = 'joint_state_publisher',
-        name       = 'joint_state_publisher',
-        output     = 'screen',
-        parameters = [{'use_sim_time': True}]
     )
 
     # Gazebo model path
@@ -76,12 +68,9 @@ def generate_launch_description():
     # ROS2 Control - controller manager
     ros2_control = Node(
         package    = 'controller_manager',
-        executable = 'ros2_control_node',   # <- THIS is the controller manager
+        executable = 'ros2_control_node',
         output     = 'screen',
-        parameters = [
-            {'robot_description': robot_desc},  # URDF for transmission parsing
-            {'use_sim_time': True}
-        ]
+        parameters = [ctlrs_yaml, {'robot_description': robot_desc, 'use_sim_time': True}]
     )
 
     # ROS2_Control - joint_state_broadcaster and arm_controller
@@ -134,7 +123,7 @@ def generate_launch_description():
         name       = 'mock_odrive',
         output     = 'screen'
     )
-    
+
     # Run the nodes
     return LaunchDescription([
         mock_odrive,                  # start CAN sim early
@@ -142,7 +131,6 @@ def generate_launch_description():
         gazebo,                       # physics engine
         ros2_control,
         robot_state_publisher,        # TF tree
-        joint_state_publisher,        # zero joint-states
         bridge,                       # clock + joint_state relay
         spawn_entity,                 # inject robo
         rviz,                         # visualise once data flows
