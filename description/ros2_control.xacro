@@ -2,22 +2,9 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <ros2_control name="darm_hardware" type="system">
-
-        <!-- Select hardware type based on sim flag -->
-        <xacro:macro name="darm_ros2_control" params="sim:=false">
-            <if condition="${sim}">
-                    <hardware>
-                    <plugin>gz_ros2_control/GazeboSimSystem</plugin>
-                </hardware>
-            </if>
-
-            <unless condition="${sim}">
-                <hardware>
-                    <plugin>odrive_ros2_control_plugin/ODriveHardwareInterface</plugin>
-                    <param name="can">can0</param>
-                </hardware>
-            </unless>
-        </xacro:macro>
+        <hardware>
+            <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+        </hardware>
 
         <joint name="link_1_joint">
             <command_interface name="position"/>
