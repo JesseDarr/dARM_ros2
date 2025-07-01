@@ -14,16 +14,13 @@
 
     <transmission name="joint_2_tran">
         <type>transmission_interface/DifferentialTransmission</type>
-
         <joint name="link_2_joint">
             <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
         </joint>
-
         <actuator name="joint_2_left_actr">
             <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
             <mechanicalReduction>9.0</mechanicalReduction>
         </actuator>
-
         <actuator name="joint_2_right_actr">
             <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
             <mechanicalReduction>-9.0</mechanicalReduction>

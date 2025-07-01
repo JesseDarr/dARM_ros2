@@ -5,12 +5,18 @@
     <xacro:include filename="$(find darm_ros2)/description/darm.trans" />
     <xacro:include filename="$(find darm_ros2)/description/ros2_control.xacro" />
 
-    <!-- PLUGINS -->
+    <!-- Gaebo Plugins -->
     <gazebo>
-        <plugin name="gz::sim::systems::JointStatePublisher" filename="gz-sim-joint-state-publisher-system"/>
+        <plugin name="gz::sim::systems::JointStatePublisher"       filename="gz-sim-joint-state-publisher-system"/>
+        <plugin name="gz_ros2_control::GazeboSimROS2ControlPlugin" filename="libgz_ros2_control-system.so">
+            <parameters>$(find darm_ros2)/config/ros2_control_controllers.yaml</parameters>
+            <use_ros_transmissions>true</use_ros_transmissions>
+            <robot_transmissions>$(find darm_ros2)/description/darm.trans</robot_transmissions>
+            <enable_position_limits>true</enable_position_limits>
+        </plugin>
     </gazebo>
 
-    <!-- LINKS -->
+    <!-- Links -->
 	<link name="world" />
 
     <link name="base_link">
@@ -161,7 +167,7 @@
         <!-- No Collisions -->
     </link>
 
-    <!-- JOINTS -->
+    <!-- Joints -->
     <joint name="base_joint" type="fixed">
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <parent link="world"/>
@@ -241,7 +247,7 @@
     </joint>
 
     <joint name="dock_joint" type="fixed">
-		<origin xyz="0 0 0" rpy="1.5707963267949 0 0" />
+		<origin xyz="0 0 0" rpy="${90 * pi / 180} 0 0" />
 		<parent link="base_link"/>
 		<child link="dock"/>
 	</joint>

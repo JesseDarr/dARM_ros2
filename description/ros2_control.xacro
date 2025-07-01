@@ -6,63 +6,15 @@
             <plugin>gz_ros2_control/GazeboSimSystem</plugin>
         </hardware>
 
-        <joint name="link_1_joint">
-            <command_interface name="position"/>
-            <state_interface name="velocity"/>
-            <state_interface name="position"/>
-        </joint>
-
-        <joint name="link_2_joint">
-            <command_interface name="position"/>
-            <state_interface name="velocity"/>
-            <state_interface name="position"/>
-        </joint>
-
-        <joint name="link_3_joint">
-            <command_interface name="position"/>
-            <state_interface name="velocity"/>
-            <state_interface name="position"/>
-        </joint>
-
-        <joint name="forearm_joint">
-            <command_interface name="position"/>
-            <state_interface name="velocity"/>
-            <state_interface name="position"/>
-        </joint>
-
-        <joint name="differential_joint">
-            <command_interface name="position"/>
-            <state_interface name="velocity"/>
-            <state_interface name="position"/>
-        </joint>
-
-        <joint name="gripper_joint">
-            <command_interface name="position"/>
-            <state_interface name="velocity"/>
-            <state_interface name="position"/>
-        </joint>
-
-        <joint name="finger_1_joint">
-            <command_interface name="position"/>
-            <state_interface name="velocity"/>
-            <state_interface name="position"/>
-        </joint>
-
-        <joint name="finger_2_joint">
-            <command_interface name="position"/>
-            <state_interface name="velocity"/>
-            <state_interface name="position"/>
-        </joint>
+        <joint name="link_1_joint">         <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
+        <joint name="link_2_joint">         <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
+        <joint name="link_3_joint">         <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
+        <joint name="forearm_joint">        <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
+        <joint name="differential_joint">   <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
+        <joint name="gripper_joint">        <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
+        <joint name="finger_1_joint">       <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
+        <joint name="finger_2_joint">       <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
 
     </ros2_control>
-
-    <gazebo>
-        <plugin name="gz_ros2_control::GazeboSimROS2ControlPlugin" filename="libgz_ros2_control-system.so">
-            <parameters>$(find darm_ros2)/config/ros2_control_controllers.yaml</parameters>
-            <use_ros_transmissions>true</use_ros_transmissions>
-            <robot_transmissions>$(find darm_ros2)/description/darm.trans</robot_transmissions>
-            <enable_position_limits>true</enable_position_limits>
-        </plugin>
-    </gazebo>
 
 </robot>
