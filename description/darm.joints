@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <joint name="base_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <parent link="world"/>
+        <child link="base_link"/>        
+    </joint>
+
+    <joint name="link_1_joint" type="revolute">
+        <origin xyz="0 0 0.14444" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="link_1" />
+        <axis xyz="0 0 1"/>
+        <limit lower="${-pi - 0.5}" upper="${pi + 0.5}" effort="5" velocity="10" />
+        <dynamics friction="0.2" />
+    </joint>
+
+    <joint name="link_2_joint" type="revolute">
+        <origin xyz="0 0 0.07556" rpy="${-113 * pi / 180} 0 0" />
+        <parent link="link_1" />
+        <child link="link_2" />
+        <axis xyz="1 0 0"/>
+        <limit lower="-0.001" upper="${226 * pi / 180}" effort="10" velocity="10" />
+        <dynamics friction="0.2" />
+    </joint>
+
+    <joint name="link_3_joint" type="revolute">
+        <origin xyz="0 0 0.18708" rpy="0 0 0" />
+        <parent link="link_2" />
+        <child link="link_3" />
+        <axis xyz="0 0 1" />
+        <limit lower="${-pi - 0.5}" upper="${pi + 0.5}" effort="5" velocity="10" />
+        <dynamics friction="0.2" />
+    </joint>
+
+    <joint name="forearm_joint" type="revolute">
+        <origin xyz="0 0 0.06292" rpy="${122.9 * pi / 180} 0 0" />
+        <parent link="link_3" />
+        <child link="forearm" />
+        <axis xyz="-1 0 0"/>
+        <limit lower="-0.001" upper="${245.8 * pi / 180}" effort="5" velocity="10" />
+        <dynamics friction="0.2" />
+    </joint>
+
+    <joint name="differential_joint" type="revolute">
+        <origin xyz="0 0 0.34" rpy="0 0 0" />
+        <parent link="forearm" />
+        <child link="differential" />
+        <axis xyz="1 0 0"/>
+        <limit lower="${-110 * pi / 180}" upper="${110 * pi / 180}" effort="2" velocity="10" />
+        <dynamics friction="0.2" />
+    </joint>
+
+    <joint name="gripper_joint" type="revolute">
+        <origin xyz="0 0 0.02" rpy="0 0 0" />
+        <parent link="differential" />
+        <child link="gripper" />
+        <axis xyz="0 0 -1" />
+        <limit lower="-3.141593" upper="3.141593" effort="2" velocity="10" />
+        <dynamics friction="0.2" />
+    </joint>
+
+    <joint name="finger_1_joint" type="prismatic">
+        <origin xyz="0.05 -0.0035 0.091365" rpy="0 0 0" />
+        <parent link="gripper" />
+        <child link="finger_1" />
+        <axis xyz="1 0 0"/>
+        <limit lower="-0.0001" upper="0.025" effort="1" velocity="2" />
+        <dynamics friction="0.2" />
+    </joint>
+
+    <joint name="finger_2_joint" type="prismatic">
+        <origin xyz="-0.05 0.0035 0.091365" rpy="0 0 0" />
+        <parent link="gripper" />
+        <child link="finger_2" />
+        <axis xyz="-1 0 0"/>
+        <limit lower="-0.0001" upper="0.025" effort="1" velocity="2" />
+        <dynamics friction="0.2" />
+    </joint>
+
+    <joint name="dock_joint" type="fixed">
+		<origin xyz="0 0 0" rpy="${90 * pi / 180} 0 0" />
+		<parent link="base_link"/>
+		<child link="dock"/>
+	</joint>
+    
+</robot>
