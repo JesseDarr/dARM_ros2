@@ -21,147 +21,147 @@
 
     <link name="base_link">
         <inertial>
-            <origin xyz="-2.48214977716486E-09 1.31657070874586E-10 0.029744552660135" rpy="0 0 0" />
-            <mass value="3.94679994437601" />
-            <inertia ixx="0.0431256456187624" ixy="-1.74150231764969E-11" ixz="2.65508777971032E-10" iyy="0.04312564565183" iyz="-3.95324375768137E-12" izz="0.0811349502099203" />
+            <origin xyz="0 0 0.029745" rpy="0 0 0"/>
+            <mass value="3.946800"/>
+            <inertia ixx="0.043126" ixy="0" ixz="0" iyy="0.043126" iyz="0" izz="0.081135"/>
         </inertial>
         <visual>
-            <geometry> <mesh filename="package://darm_ros2/meshes/base_link.stl" /> </geometry>
+            <geometry> <mesh filename="package://darm_ros2/meshes/base_link.stl"/> </geometry>
             <material name="orange"/>
         </visual>
         <collision>
-            <geometry> <mesh filename="package://darm_ros2/meshes/base_link.stl" /> </geometry>
+            <geometry> <mesh filename="package://darm_ros2/meshes/base_link.stl"/> </geometry>
         </collision>
     </link>
 
     <link name="link_1">
         <inertial>
-            <origin xyz="7.15911315456218E-08 8.68939660755098E-09 0.0584380287888475" rpy="0 0 0" />
-            <mass value="0.929574003768527" />
-            <inertia ixx="0.00221230913328666" ixy="-3.73024066520023E-09" ixz="2.37690034244167E-09" iyy="0.00555836322466348" iyz="4.27114309369668E-10" izz="0.00504882065680784" />
+            <origin xyz="0 0 0.058438" rpy="0 0 0"/>
+            <mass value="0.929574"/>
+            <inertia ixx="0.002212" ixy="0" ixz="0" iyy="0.005558" iyz="0" izz="0.005049"/>
         </inertial>
         <visual>
-            <geometry> <mesh filename="package://darm_ros2/meshes/link_1.stl" /> </geometry>
+            <geometry> <mesh filename="package://darm_ros2/meshes/link_1.stl"/> </geometry>
             <material name="orange"/>
         </visual>
         <collision>
-            <geometry> <mesh filename="package://darm_ros2/meshes/link_1.stl" /> </geometry>
+            <geometry> <mesh filename="package://darm_ros2/meshes/link_1.stl"/> </geometry>
         </collision>
     </link>
 
     <link name="link_2">
         <inertial>
-            <origin xyz="9.62400180381701E-09 -1.37086921334664E-10 0.0969701828522983" rpy="0 0 0" />
-            <mass value="0.599415288390779" />
-            <inertia ixx="0.00279842867682668" ixy="2.84949733351285E-12" ixz="-1.54896682375371E-11" iyy="0.00304765284781319" iyz="-2.7667649011426E-13" izz="0.00114528537253384" />
+            <origin xyz="0 0 0.096970" rpy="0 0 0"/>
+            <mass value="0.599415"/>
+            <inertia ixx="0.002798" ixy="0" ixz="0" iyy="0.003048" iyz="0" izz="0.001145"/>
         </inertial>
         <visual>
-            <geometry> <mesh filename="package://darm_ros2/meshes/link_2.stl" /> </geometry>
+            <geometry> <mesh filename="package://darm_ros2/meshes/link_2.stl"/> </geometry>
             <material name="orange"/>
         </visual>
         <collision>
-            <geometry> <mesh filename="package://darm_ros2/meshes/link_2.stl" /> </geometry>
+            <geometry> <mesh filename="package://darm_ros2/meshes/link_2.stl"/> </geometry>
         </collision>
     </link>
 
     <link name="link_3">
         <inertial>
-            <origin xyz="0.00267869003124433 5.00018886047696E-08 0.0563682767579012" rpy="0 0 0" />
-            <mass value="0.287966931095487" />
-            <inertia ixx="0.000711193490596281" ixy="-1.3748826737474E-10" ixz="-1.62165030254086E-06" iyy="0.000599618348634449" iyz="-6.54553165240046E-10" izz="0.000489006809690983" />
+            <origin xyz="0.002679 0 0.056368" rpy="0 0 0"/>
+            <mass value="0.287967"/>
+            <inertia ixx="0.000711" ixy="0" ixz="-0.000002" iyy="0.000600" iyz="0" izz="0.000489"/>
         </inertial>
         <visual>
-            <geometry> <mesh filename="package://darm_ros2/meshes/link_3.stl" /> </geometry>
+            <geometry> <mesh filename="package://darm_ros2/meshes/link_3.stl"/> </geometry>
             <material name="orange"/>
         </visual>
         <collision>
-            <geometry> <mesh filename="package://darm_ros2/meshes/link_3.stl" /> </geometry>
+            <geometry> <mesh filename="package://darm_ros2/meshes/link_3.stl"/> </geometry>
         </collision>
     </link>
 
     <link name="forearm">
         <inertial>
-            <origin xyz="-0.0111196882232257 -1.38520825281059E-09 0.139892220718873" rpy="0 0 0" />
-            <mass value="0.726179387863323" />
-            <inertia ixx="0.00604137800947662" ixy="2.20607343735278E-11" ixz="-0.000870723898953885" iyy="0.00727938326913045" iyz="-6.23876885521001E-11" izz="0.00187146307463222" />
+            <origin xyz="-0.011120 0 0.139892" rpy="0 0 0"/>
+            <mass value="0.726179"/>
+            <inertia ixx="0.006041" ixy="0" ixz="-0.000871" iyy="0.007279" iyz="0" izz="0.001871"/>
         </inertial>
         <visual>
-            <geometry> <mesh filename="package://darm_ros2/meshes/forearm.stl" /> </geometry>
+            <geometry> <mesh filename="package://darm_ros2/meshes/forearm.stl"/> </geometry>
             <material name="orange"/>
         </visual>
         <collision>
-            <geometry> <mesh filename="package://darm_ros2/meshes/forearm.stl" /> </geometry>
+            <geometry> <mesh filename="package://darm_ros2/meshes/forearm.stl"/> </geometry>
         </collision>
     </link>
 
     <link name="differential">
         <inertial>
-            <origin xyz="1.02275773739878E-10 1.80304198167004E-10 0.000543571929508047" rpy="0 0 0" />
-            <mass value="0.124870511204017" />
-            <inertia ixx="3.41480810003697E-05" ixy="-1.54868824146798E-13" ixz="-1.18074691967879E-13" iyy="0.000146971987099205" iyz="-1.24779254989816E-13" izz="0.000144640694046327" />
+            <origin xyz="0 0 0.000544" rpy="0 0 0"/>
+            <mass value="0.124871"/>
+            <inertia ixx="0.000034" ixy="0" ixz="0" iyy="0.000147" iyz="0" izz="0.000145"/>
         </inertial>
         <visual>
-            <geometry> <mesh filename="package://darm_ros2/meshes/differential.stl" /> </geometry>
+            <geometry> <mesh filename="package://darm_ros2/meshes/differential.stl"/> </geometry>
             <material name="orange"/>
         </visual>
         <collision>
-            <geometry> <mesh filename="package://darm_ros2/meshes/differential.stl" /> </geometry>
+            <geometry> <mesh filename="package://darm_ros2/meshes/differential.stl"/> </geometry>
         </collision>
     </link>
 
     <link name="gripper">
         <inertial>
-            <origin xyz="1.47508677544427E-10 -4.19167787497244E-10 0.0486273252910504" rpy="0 0 0" />
-            <mass value="0.227833460574031" />
-            <inertia ixx="0.000187517505664128" ixy="3.98883278992547E-11" ixz="-3.14443887964494E-12" iyy="0.000227045470734226" iyz="-1.97659223492597E-13" izz="0.000181158961918109" />
+            <origin xyz="0 0 0.048627" rpy="0 0 0"/>
+            <mass value="0.227833"/>
+            <inertia ixx="0.000188" ixy="0" ixz="0" iyy="0.000227" iyz="0" izz="0.000181"/>
         </inertial>
         <visual>
-            <geometry> <mesh filename="package://darm_ros2/meshes/gripper.stl" /> </geometry>
+            <geometry> <mesh filename="package://darm_ros2/meshes/gripper.stl"/> </geometry>
             <material name="orange"/>
         </visual>
         <collision>
-            <geometry> <mesh filename="package://darm_ros2/meshes/gripper.stl" /> </geometry>
+            <geometry> <mesh filename="package://darm_ros2/meshes/gripper.stl"/> </geometry>
         </collision>
     </link>
 
     <link name="finger_1">
         <inertial>
-            <origin xyz="-0.0397149506377288 0.0043644596805526 0.0174753151362246" rpy="0 0 0" />
-            <mass value="0.0333577018228372" />
-            <inertia ixx="1.08379131084182E-05" ixy="3.69353084704428E-07" ixz="-1.84217384725127E-07" iyy="1.18448488567153E-05" iyz="7.64596058297597E-07" izz="4.94385971740681E-06" />
+            <origin xyz="-0.039715 0.004364 0.017475" rpy="0 0 0"/>
+            <mass value="0.033358"/>
+            <inertia ixx="0.000011" ixy="0" ixz="0" iyy="0.000012" iyz="0.000001" izz="0.000005"/>
         </inertial>
         <visual>
-            <geometry> <mesh filename="package://darm_ros2/meshes/finger_1.stl" /> </geometry>
+            <geometry> <mesh filename="package://darm_ros2/meshes/finger_1.stl"/> </geometry>
             <material name="rubber"/>
         </visual>
         <collision>
-            <geometry> <mesh filename="package://darm_ros2/meshes/finger_1.stl" /> </geometry>
+            <geometry> <mesh filename="package://darm_ros2/meshes/finger_1.stl"/> </geometry>
         </collision>
     </link>
 
     <link name="finger_2">
         <inertial>
-            <origin xyz="0.0397149506377779 -0.00436445968013956 0.0174753151362146" rpy="0 0 0" />
-            <mass value="0.0333577018228331" />
-            <inertia ixx="1.08379131084146E-05" ixy="3.6935308470359E-07" ixz="1.84217384719551E-07" iyy="1.18448488567102E-05" iyz="-7.6459605829553E-07" izz="4.94385971740436E-06" />
+            <origin xyz="0.039715 -0.004364 0.017475" rpy="0 0 0"/>
+            <mass value="0.033358"/>
+            <inertia ixx="0.000011" ixy="0" ixz="0" iyy="0.000012" iyz="-0.000001" izz="0.000005"/>
         </inertial>
         <visual>
-            <geometry> <mesh filename="package://darm_ros2/meshes/finger_2.stl" /> </geometry>
+            <geometry> <mesh filename="package://darm_ros2/meshes/finger_2.stl"/> </geometry>
             <material name="rubber"/>
         </visual>
         <collision>
-            <geometry> <mesh filename="package://darm_ros2/meshes/finger_2.stl" /> </geometry>
+            <geometry> <mesh filename="package://darm_ros2/meshes/finger_2.stl"/> </geometry>
         </collision>
     </link>
 
-    <link name="dock">  
+    <link name="dock">
         <inertial>
-            <origin xyz="-6.06353067490172E-08 0.0224446345139935 -0.212157844299707" rpy="0 0 0" />
-            <mass value="0.527745087881467" />
-            <inertia ixx="0.000497536173309031" ixy="-6.39662591362518E-10" ixz="1.426171887878E-09" iyy="0.000997647866144999" iyz="2.17268365789033E-05" izz="0.000787144635104907" />
+            <origin xyz="0 0.022445 -0.212158" rpy="0 0 0"/>
+            <mass value="0.527745"/>
+            <inertia ixx="0.000498" ixy="0" ixz="0" iyy="0.000998" iyz="0.000022" izz="0.000787"/>
         </inertial>
         <visual>
-            <geometry> <mesh filename="package://darm_ros2/meshes/dock.stl" /> </geometry>
+            <geometry> <mesh filename="package://darm_ros2/meshes/dock.stl"/> </geometry>
             <material name="rubber"/>
         </visual>
         <!-- No Collisions -->
