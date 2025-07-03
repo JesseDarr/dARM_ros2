@@ -1,4 +1,4 @@
-$files = Get-ChildItem -Path "./" -File -Recurse -Exclude "*.stl"
+$files = Get-ChildItem -Path "./" -File -Recurse -Exclude "*.stl", "LICENSE"
 
 $output = @()
 foreach ($file in $files) { 
