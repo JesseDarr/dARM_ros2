@@ -17,7 +17,7 @@ def generate_launch_description():
     world_path = os.path.join(get_package_share_directory(pkg_name), 'worlds', 'basic.sdf')
     model_path = os.path.join(get_package_share_directory(pkg_name), 'meshes')
     xacro_file = os.path.join(get_package_share_directory(pkg_name), 'description', 'darm.urdf.xacro')    
-    robot_desc = xacro.process_file(xacro_file).toxml()
+    robot_desc = xacro.process_file(xacro_file, mappings={'sim': 'true'}).toxml()
 
     # Robot State Publisher
     robot_state_publisher = Node(
