@@ -9,5 +9,5 @@ cleanup() {
 # Set up cleanup trap
 trap 'cleanup' SIGINT SIGTERM
 
-echo "Launching darm..."
-ros2 launch darm_ros2 gazebo.launch.py
+echo "Launching darm robot..."
+ros2 launch darm_ros2 robot.launch.py

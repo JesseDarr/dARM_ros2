@@ -2,80 +2,27 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <ros2_control name="darm_hardware" type="system">
+        <!-- Select GZ Sim or Odrive hardware interface based on 'sim' argument -->
+        <hardware>
+            <xacro:if value="$(arg sim)">
+                <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+            </xacro:if>
 
-        <!-- Select hardware type based on sim flag -->
-        <xacro:macro name="darm_ros2_control" params="sim:=false">
-            <if condition="${sim}">
-                    <hardware>
-                    <plugin>gz_ros2_control/GazeboSimSystem</plugin>
-                </hardware>
-            </if>
+            <xacro:unless value="$(arg sim)">
+                <plugin>odrive_ros2_control_plugin/ODriveHardwareInterface</plugin>
+                <param name="can">can0</param>
+            </xacro:unless>
+        </hardware>
 
-            <unless condition="${sim}">
-                <hardware>
-                    <plugin>odrive_ros2_control_plugin/ODriveHardwareInterface</plugin>
-                    <param name="can">can0</param>
-                </hardware>
-            </unless>
-        </xacro:macro>
-
-        <joint name="link_1_joint">
-            <command_interface name="position"/>
-            <state_interface name="velocity"/>
-            <state_interface name="position"/>
-        </joint>
-
-        <joint name="link_2_joint">
-            <command_interface name="position"/>
-            <state_interface name="velocity"/>
-            <state_interface name="position"/>
-        </joint>
-
-        <joint name="link_3_joint">
-            <command_interface name="position"/>
-            <state_interface name="velocity"/>
-            <state_interface name="position"/>
-        </joint>
-
-        <joint name="forearm_joint">
-            <command_interface name="position"/>
-            <state_interface name="velocity"/>
-            <state_interface name="position"/>
-        </joint>
-
-        <joint name="differential_joint">
-            <command_interface name="position"/>
-            <state_interface name="velocity"/>
-            <state_interface name="position"/>
-        </joint>
-
-        <joint name="gripper_joint">
-            <command_interface name="position"/>
-            <state_interface name="velocity"/>
-            <state_interface name="position"/>
-        </joint>
-
-        <joint name="finger_1_joint">
-            <command_interface name="position"/>
-            <state_interface name="velocity"/>
-            <state_interface name="position"/>
-        </joint>
-
-        <joint name="finger_2_joint">
-            <command_interface name="position"/>
-            <state_interface name="velocity"/>
-            <state_interface name="position"/>
-        </joint>
+        <joint name="link_1_joint">         <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
+        <joint name="link_2_joint">         <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
+        <joint name="link_3_joint">         <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
+        <joint name="forearm_joint">        <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
+        <joint name="differential_joint">   <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
+        <joint name="gripper_joint">        <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
+        <joint name="finger_1_joint">       <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
+        <joint name="finger_2_joint">       <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
 
     </ros2_control>
-
-    <gazebo>
-        <plugin name="gz_ros2_control::GazeboSimROS2ControlPlugin" filename="libgz_ros2_control-system.so">
-            <parameters>$(find darm_ros2)/config/ros2_control_controllers.yaml</parameters>
-            <use_ros_transmissions>true</use_ros_transmissions>
-            <robot_transmissions>$(find darm_ros2)/description/darm.trans</robot_transmissions>
-            <enable_position_limits>true</enable_position_limits>
-        </plugin>
-    </gazebo>
 
 </robot>
