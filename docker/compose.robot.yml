@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  robot:
+    image: ghcr.io/jesse-darr/darm_ros2:robot-latest
+    container_name: darm_robot
+    privileged: true                      # /dev/* for CAN-HAT, BT, etc.
+    network_mode: host
+    volumes:
+      - /dev:/dev
+    command: ./bringup/robot.sh
+    restart: unless-stopped

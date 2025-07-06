@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  sim:
+    image: ghcr.io/jesse-darr/darm_ros2:sim-latest
+    container_name: darm_sim
+    environment:
+      - DISPLAY=:0
+      - QT_X11_NO_MITSHM=1
+    devices:
+      - /dev/dri                          # Mesa / AMD GPU access
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    network_mode: host
+    command: ./bringup/sim.sh
+    restart: unless-stopped
