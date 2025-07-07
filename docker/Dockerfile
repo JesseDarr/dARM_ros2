@@ -1,14 +1,14 @@
 #####################  Base  ###################################################
 FROM ubuntu:24.04
-ARG  FLAVOR=sim               # sim  |  robot
+ARG  FLAVOR = sim
 
 # Environmental Variables
-ENV DEBIAN_FRONTEND    noninteractive
-ENV LANG               C.UTF-8
-ENV LC_ALL             C.UTF-8
-ENV TZ                 America/Chicago          # CST/CDT
-ENV ROS_DISTRO         jazzy
-ENV RMW_IMPLEMENTATION rmw_fastrtps_cpp         # DDS middleware for ROS 2
+ENV DEBIAN_FRONTEND    = noninteractive
+ENV LANG               = C.UTF-8
+ENV LC_ALL             = C.UTF-8
+ENV TZ                 = America/Chicago          # CST/CDT
+ENV ROS_DISTRO         = jazzy
+ENV RMW_IMPLEMENTATION = rmw_fastrtps_cpp         # DDS middleware for ROS 2
 
 # Install Basics
 RUN apt-get update
@@ -29,16 +29,11 @@ RUN locale-gen en_US.UTF-8
 RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key | \
     gpg --dearmor -o /usr/share/keyrings/ros-archive-keyring.gpg
 
-RUN curl -sSL https://packages.osrfoundation.org/gazebo.key | \
-    gpg --dearmor -o /usr/share/keyrings/gz-archive-keyring.gpg
 
 # ROS2 repo
 RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] \
           http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2.list
 
-# Gazebo repo
-RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/gz-archive-keyring.gpg] \
-          http://packages.osrfoundation.org/gz/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/gz.list
 
 # Install ROS2 and RVIZ
 RUN apt-get update
