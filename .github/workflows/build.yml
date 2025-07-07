@@ -2,11 +2,13 @@ name: build-and-push-darm-images
 
 on:
   push:
-    paths:
-      - 'docker/**'
-      - 'bringup/**'
-      - 'launch/**'
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
   pull_request:
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
 
 jobs:
   build_and_publish:

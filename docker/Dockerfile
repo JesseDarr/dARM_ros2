@@ -1,4 +1,4 @@
-#####################  Base  ###################################################
+##################### Base ###################################################
 FROM ubuntu:24.04
 ARG  FLAVOR=sim
 
@@ -38,7 +38,7 @@ RUN apt-get install -y ros-${ROS_DISTRO}-ros-base
 RUN apt-get install -y ros-${ROS_DISTRO}-rviz2
 RUN apt-get install -y python3-colcon-common-extensions
 
-#####################  Flavor Specific  #######################################
+##################### Flavor Specific ########################################
 # sim
 RUN if [ "$FLAVOUR" = "sim" ]; then \
         apt-get update && \
@@ -55,7 +55,7 @@ RUN if [ "$FLAVOR" = "robot" ]; then \
         apt-get install -y bluez ; \
     fi
 
-#####################  Build  #######################################
+##################### Build ##################################################
 # Create workspace, set workdir, and copy files into image
 RUN mkdir -p /ros_ws/src
 WORKDIR /ros_ws/src/dARM_ros2
