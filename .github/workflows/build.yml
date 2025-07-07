@@ -50,7 +50,7 @@ jobs:
           platforms: ${{ matrix.platform }}
           push: true
           cache-from: type=gha,scope=${{ matrix.flavor }}-${{ matrix.platform }}
-          cache-to:   type=gha,mode=max,scope=${{ matrix.flavor }}-${{ matrix.platform }},ttl=400d
+          cache-to:   type=gha,mode=max,scope=${{ matrix.flavor }}-${{ matrix.platform }},ttl=365d
           tags: |
             ghcr.io/jessedarr/darm_ros2:${{ matrix.flavor }}-latest
             ghcr.io/jessedarr/darm_ros2:${{ github.sha }}-${{ matrix.flavor }}
