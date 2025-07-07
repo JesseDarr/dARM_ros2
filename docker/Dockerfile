@@ -47,10 +47,10 @@ RUN apt-get install -y ros-${ROS_DISTRO}-rviz2
 
 #####################  Flavor Specific  #######################################
 # sim
-RUN if [ "$FLAVOR" = "sim" ]; then \
+RUN if [ "$FLAVOUR" = "sim" ]; then \
         apt-get update && \
-        apt-get install -y gz-sim && \
-        apt-get install -y gz-gui && \
+        apt-get install -y ros-${ROS_DISTRO}-ros-gz-sim && \
+        apt-get install -y ros-${ROS_DISTRO}-ros-gz-gui && \
         apt-get install -y ros-${ROS_DISTRO}-ros-gz-bridge && \
         apt-get install -y mesa-utils ; \
     fi
