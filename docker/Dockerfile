@@ -74,5 +74,6 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && \
                   colcon build --symlink-install && \
                   echo 'source /ros_ws/install/setup.bash' >> /etc/bash.bashrc"
 
-# Set default shell
+# Set default shell and final workdir
+WORKDIR /ros_ws/src/dARM_ros2
 CMD ["/bin/bash"]
