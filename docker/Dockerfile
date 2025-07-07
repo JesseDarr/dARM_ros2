@@ -38,7 +38,7 @@ RUN apt-get install -y ros-${ROS_DISTRO}-ros-base
 RUN apt-get install -y ros-${ROS_DISTRO}-rviz2
 RUN apt-get install -y python3-colcon-common-extensions
 
-##################### Flavor Specific ########################################
+##################### Flavor Specific ######################################## 
 # sim
 RUN if [ "$FLAVOUR" = "sim" ]; then \
         apt-get update && \
