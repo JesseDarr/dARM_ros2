@@ -4,13 +4,13 @@ on:
   push:
     paths:
       - 'docker/**'
-      - 'src/**'
       - 'bringup/**'
       - 'launch/**'
   pull_request:
 
 jobs:
   build_and_publish:
+    name: Build & publish ${{ matrix.flavor }} (${ { matrix.platform }})
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -38,14 +38,17 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ github.token }}
 
-      - name: Build and push ${{ matrix.flavor }} image
+      - name: Build & push ${{ matrix.flavor }} image
         uses: docker/build-push-action@v5
         with:
           context: .
           file: docker/Dockerfile
-          build-args: FLAVOR=${{ matrix.flavor }}
+          build-args: |
+            FLAVOR=${{ matrix.flavor }}
           platforms: ${{ matrix.platform }}
           push: true
+          cache-from: type=gha,scope=${{ matrix.flavor }}-${{ matrix.platform }}
+          cache-to:   type=gha,mode=max,scope=${{ matrix.flavor }}-${{ matrix.platform }},ttl=400d
           tags: |
             ghcr.io/jessedarr/darm_ros2:${{ matrix.flavor }}-latest
             ghcr.io/jessedarr/darm_ros2:${{ github.sha }}-${{ matrix.flavor }}
