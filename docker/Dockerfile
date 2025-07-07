@@ -68,6 +68,9 @@ RUN mkdir -p /ros_ws/src
 WORKDIR /ros_ws/src/dARM_ros2
 COPY . .
 
+# Make bringup scripts executable
+RUN chmod +x bringup/*.sh
+
 # Build dARM_ros2 package and add setup.bash to bash.bashrc
 WORKDIR /ros_ws
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && \
