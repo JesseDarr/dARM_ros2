@@ -36,6 +36,7 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/r
 RUN apt-get update
 RUN apt-get install -y ros-${ROS_DISTRO}-ros-base
 RUN apt-get install -y ros-${ROS_DISTRO}-rviz2
+RUN apt-get install -y python3-colcon-common-extensions
 
 #####################  Flavor Specific  #######################################
 # sim
