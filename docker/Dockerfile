@@ -1,6 +1,6 @@
 #####################  Base  ###################################################
 FROM ubuntu:24.04
-ARG  FLAVOUR=sim               # sim  |  robot
+ARG  FLAVOR=sim               # sim  |  robot
 
 # Environmental Variables
 ENV DEBIAN_FRONTEND    noninteractive
@@ -25,45 +25,54 @@ RUN apt-get install -y python3-pip
 # Set Locale
 RUN locale-gen en_US.UTF-8
 
-# ROS 2 repo key
+# ROS2 and Gzebo repo keys
 RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key | \
     gpg --dearmor -o /usr/share/keyrings/ros-archive-keyring.gpg
 
-# ROS 2 APT repo line
+RUN curl -sSL https://packages.osrfoundation.org/gazebo.key | \
+    gpg --dearmor -o /usr/share/keyrings/gz-archive-keyring.gpg
+
+# ROS2 repo
 RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] \
           http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2.list
+
+# Gazebo repo
+RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/gz-archive-keyring.gpg] \
+          http://packages.osrfoundation.org/gz/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/gz.list
 
 # Install ROS2 and RVIZ
 RUN apt-get update
 RUN apt-get install -y ros-${ROS_DISTRO}-ros-base
-RUN apt-get install -y ros-${ROS_DISTRO}-rviz2   # visualiser
+RUN apt-get install -y ros-${ROS_DISTRO}-rviz2
 
-#####################  Flavour Specific  #######################################
+#####################  Flavor Specific  #######################################
 # sim
-RUN if [ "$FLAVOUR" = "sim" ]; then \
+RUN if [ "$FLAVOR" = "sim" ]; then \
         apt-get update && \
-        apt-get install -y gazebo && \
+        apt-get install -y gz-sim && \
+        apt-get install -y gz-gui && \
+        apt-get install -y ros-${ROS_DISTRO}-ros-gz-bridge \
         apt-get install -y mesa-utils ; \
     fi
 
 # robot
-RUN if [ "$FLAVOUR" = "robot" ]; then \
+RUN if [ "$FLAVOR" = "robot" ]; then \
         apt-get update && \
         apt-get install -y can-utils && \
         apt-get install -y bluez ; \
     fi
 
 #####################  Build  #######################################
-# Create workspace, set workdir, and copy files
+# Create workspace, set workdir, and copy files into image
 RUN mkdir -p /ros_ws/src
 WORKDIR /ros_ws/src/dARM_ros2
-COPY . /ros_ws/src/dARM_ros2
+COPY . .
 
-# ── Build & make every future shell auto-source the workspace ────────────────
+# Build dARM_ros2 package and add setup.bash to bash.bashrc
 WORKDIR /ros_ws
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && \
                   colcon build --symlink-install && \
                   echo 'source /ros_ws/install/setup.bash' >> /etc/bash.bashrc"
 
-#####################  Default shell  ##########################################
+# Set default shell
 CMD ["/bin/bash"]

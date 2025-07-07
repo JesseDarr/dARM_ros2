@@ -19,9 +19,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - flavour: sim
+          - flavor: sim
             platform: linux/amd64
-          - flavour: robot
+          - flavor: robot
             platform: linux/arm64
 
     steps:
@@ -38,14 +38,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ github.token }}
 
-      - name: Build and push ${{ matrix.flavour }} image
+      - name: Build and push ${{ matrix.flavor }} image
         uses: docker/build-push-action@v5
         with:
           context: .
           file: docker/Dockerfile
-          build-args: FLAVOUR=${{ matrix.flavour }}
+          build-args: FLAVOR=${{ matrix.flavor }}
           platforms: ${{ matrix.platform }}
           push: true
           tags: |
-            ghcr.io/jesse-darr/darm_ros2:${{ matrix.flavour }}-latest
-            ghcr.io/jesse-darr/darm_ros2:${{ github.sha }}-${{ matrix.flavour }}
+            ghcr.io/jesse-darr/darm_ros2:${{ matrix.flavor }}-latest
+            ghcr.io/jesse-darr/darm_ros2:${{ github.sha }}-${{ matrix.flavor }}
