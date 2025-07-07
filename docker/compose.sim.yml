@@ -1,6 +1,6 @@
 services:
   sim:
-    image: ghcr.io/jesse-darr/darm_ros2:sim-latest
+    image: ghcr.io/jessedarr/darm_ros2:sim-latest
     container_name: darm_sim
     devices:
       - /dev/dxg
