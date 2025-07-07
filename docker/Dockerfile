@@ -9,17 +9,24 @@ ENV TZ=America/Chicago
 ENV ROS_DISTRO=jazzy
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Abort on non 0 return code
+RUN set -e 
+
 # Install Basics
 RUN apt-get update
-RUN apt-get install -y curl
-RUN apt-get install -y gnupg
-RUN apt-get install -y lsb-release
-RUN apt-get install -y locales
-RUN apt-get install -y sudo
-RUN apt-get install -y tzdata
-RUN apt-get install -y git
-RUN apt-get install -y build-essential
-RUN apt-get install -y python3-pip
+RUN apt-get install -y --no-install-recommends \
+        curl \
+        gnupg \
+        lsb-release \
+        locales \
+        sudo \
+        tzdata \
+        git \
+        build-essential \
+        python3-pip
+
+# Clean APT cache
+RUN rm -rf /var/lib/apt/lists/*
 
 # Set Locale
 RUN locale-gen en_US.UTF-8
