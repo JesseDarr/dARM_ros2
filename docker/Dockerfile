@@ -3,12 +3,11 @@ FROM ubuntu:24.04
 ARG  FLAVOR=sim
 
 # Environmental Variables
-ENV DEBIAN_FRONTEND    noninteractive
-ENV LANG               C.UTF-8
-ENV LC_ALL             C.UTF-8
-ENV TZ                 America/Chicago          # CST/CDT
-ENV ROS_DISTRO         jazzy
-ENV RMW_IMPLEMENTATION rmw_fastrtps_cpp         # DDS middleware for ROS 2
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+ENV TZ=America/Chicago
+ENV ROS_DISTRO=jazzy
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Install Basics
 RUN apt-get update
