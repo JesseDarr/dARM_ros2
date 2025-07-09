@@ -39,10 +39,9 @@ RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key | \
 RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] \
           http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2.list
 
-# Install ROS2 and RVIZ
+# Install ROS2 full desktop version (includes rviz, xacro, etc)
 RUN apt-get update
-RUN apt-get install -y ros-${ROS_DISTRO}-ros-base
-RUN apt-get install -y ros-${ROS_DISTRO}-rviz2
+RUN apt-get install -y ros-${ROS_DISTRO}-desktop
 RUN apt-get install -y python3-colcon-common-extensions
 
 ##################### Flavor Specific ######################################## 
