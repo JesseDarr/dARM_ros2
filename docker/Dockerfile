@@ -70,7 +70,7 @@ COPY . .
 # Make bringup scripts executable
 RUN chmod +x bringup/*.sh
 
-# Build dARM_ros2 package and add setup.bash to bash.bashrc
+# Build dARM_ros2 package and add setup.bash to bash.bashrc 
 WORKDIR /ros_ws
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && \
                   colcon build --symlink-install && \
