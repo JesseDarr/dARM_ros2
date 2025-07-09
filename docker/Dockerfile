@@ -50,7 +50,6 @@ RUN apt-get install -y python3-colcon-common-extensions
 RUN if [ "$FLAVOR" = "sim" ]; then \
         apt-get update && \
         apt-get install -y ros-${ROS_DISTRO}-ros-gz-sim && \
-        apt-get install -y ros-${ROS_DISTRO}-ros-gz-gui && \
         apt-get install -y ros-${ROS_DISTRO}-ros-gz-bridge && \
         apt-get install -y mesa-utils ; \
     fi
