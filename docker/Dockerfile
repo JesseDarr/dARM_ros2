@@ -47,7 +47,7 @@ RUN apt-get install -y python3-colcon-common-extensions
 
 ##################### Flavor Specific ######################################## 
 # sim
-RUN if [ "$FLAVOUR" = "sim" ]; then \
+RUN if [ "$FLAVOR" = "sim" ]; then \
         apt-get update && \
         apt-get install -y ros-${ROS_DISTRO}-ros-gz-sim && \
         apt-get install -y ros-${ROS_DISTRO}-ros-gz-gui && \
@@ -75,8 +75,10 @@ RUN chmod +x bringup/*.sh
 WORKDIR /ros_ws
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && \
                   colcon build --symlink-install && \
-                  echo 'source /ros_ws/install/setup.bash' >> /etc/bash.bashrc"
+                  echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> /etc/bash.bashrc && \
+                  echo 'source /ros_ws/install/setup.bash'        >> /etc/bash.bashrc"
 
-# Set default shell and final workdir
+##################### Runtime ################################################
+# Final workdir & default shell
 WORKDIR /ros_ws/src/dARM_ros2
 CMD ["/bin/bash"]
