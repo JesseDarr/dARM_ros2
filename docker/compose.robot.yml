@@ -6,5 +6,5 @@ services:
     network_mode: host
     volumes:
       - /dev:/dev
-    command: ./bringup/robot.sh
+    command: /bin/bash -il ./bringup/robot.sh   # interactive & login
     restart: unless-stopped
