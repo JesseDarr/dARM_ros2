@@ -42,6 +42,7 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/r
 # Install ROS2 full desktop version (includes rviz, xacro, etc)
 RUN apt-get update
 RUN apt-get install -y ros-${ROS_DISTRO}-desktop
+RUN apt-get install -y ros-${ROS_DISTRO}-xacro
 RUN apt-get install -y python3-colcon-common-extensions
 
 ##################### Flavor Specific ######################################## 
