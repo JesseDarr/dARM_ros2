@@ -43,6 +43,11 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/r
 RUN apt-get update
 RUN apt-get install -y ros-${ROS_DISTRO}-desktop
 RUN apt-get install -y ros-${ROS_DISTRO}-xacro
+RUN apt-get install -y ros-${ROS_DISTRO}-joint-state-publisher-gui
+RUN apt-get install -y ros-${ROS_DISTRO}-robot-state-publisher
+RUN apt-get install -y ros-${ROS_DISTRO}-ros2-control
+RUN apt-get install -y ros-${ROS_DISTRO}-ros2-controllers
+RUN apt-get install -y ros-${ROS_DISTRO}-controller-manager
 RUN apt-get install -y python3-colcon-common-extensions
 
 ##################### Flavor Specific ######################################## 
@@ -51,6 +56,7 @@ RUN if [ "$FLAVOR" = "sim" ]; then \
         apt-get update && \
         apt-get install -y ros-${ROS_DISTRO}-ros-gz-sim && \
         apt-get install -y ros-${ROS_DISTRO}-ros-gz-bridge && \
+        apt-get install -y ros-${ROS_DISTRO}-gz-ros2-control && \
         apt-get install -y mesa-utils ; \
     fi
 
@@ -78,6 +84,10 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && \
                   echo 'source /ros_ws/install/setup.bash'        >> /etc/bash.bashrc"
 
 ##################### Runtime ################################################
+# Set XDG_RUNTIME_DIR to avoid warnings
+ENV XDG_RUNTIME_DIR=/tmp/runtime-${USER}
+RUN mkdir -p ${XDG_RUNTIME_DIR} && chmod 700 ${XDG_RUNTIME_DIR}
+
 # Final workdir & default shell
 WORKDIR /ros_ws/src/dARM_ros2
 CMD ["/bin/bash"]
