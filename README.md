@@ -77,19 +77,20 @@ docker-compose -f docker/compose.robot.yml up
 
 ## PS5 Controller Mapping
 
-| Control | Function | Notes |
-|---------|----------|-------|
-| L2 (Hold) | Dead-man switch | Must hold to enable motion |
-| Left Stick Y | Joint 0 or 3 or 5 | Depends on bumpers |
-| Right Stick X | Joint 1 or 3 or 4 | Depends on bumpers |
-| No Bumpers | Control joints 0 & 1 | Base and first link |
-| L1 | Control joints 2 & 3 | Upper arm joints |
-| R1 | Control joints 4 & 5 | Differential (bend/twist) |
-| D-Pad Left/Right | Gripper open/close | Fine control |
-| Cross (X) | Home pose | All zeros |
-| Triangle | Vertical pose | Arm straight up |
-| Square | Left pose | Predefined left position |
-| Circle | Right pose | Predefined right position |
+**Dead-man Switch**: Hold **L2** to enable any motion
+
+**Joint Control Modes**:
+- **No Bumpers**: Base rotation (left stick Y), Joint 2 (right stick X)
+- **L1 Held**: Joint 3 (left stick Y), Forearm (right stick X)
+- **R1 Held**: Differential bend (right stick X), Gripper twist (left stick Y)
+
+**Gripper Control**: D-Pad Left/Right to open/close fingers
+
+**Quick Poses**:
+- **X Button**: Home position (all zeros)
+- **Triangle**: Vertical pose (arm straight up)
+- **Square**: Left preset position
+- **Circle**: Right preset position
 
 ## Development Notes
 
