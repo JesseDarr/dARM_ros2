@@ -88,6 +88,9 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && \
 ENV XDG_RUNTIME_DIR=/tmp/runtime-${USER}
 RUN mkdir -p ${XDG_RUNTIME_DIR} && chmod 700 ${XDG_RUNTIME_DIR}
 
+# Suppress bash job control warnings in non-TTY environments
+RUN echo "set +m" >> /etc/bash.bashrc
+
 # Final workdir & default shell
 WORKDIR /ros_ws/src/dARM_ros2
 CMD ["/bin/bash"]
