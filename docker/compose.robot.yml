@@ -7,4 +7,4 @@ services:
     volumes:
       - /dev:/dev
     command: /bin/bash -il ./bringup/robot.sh   # interactive & login
-    restart: unless-stopped
+    restart: no

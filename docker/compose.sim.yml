@@ -12,4 +12,4 @@ services:
       - QT_X11_NO_MITSHM=1
     network_mode: host
     command: /bin/bash -il ./bringup/sim.sh   # interactive & login
-    restart: unless-stopped
+    restart: no
