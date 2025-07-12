@@ -23,6 +23,12 @@ services:
       - MESA_D3D12_DEFAULT_ADAPTER_NAME=AMD   # Use AMD GPU via D3D12
       - WSL2_GUI_APPS_ENABLED=1               # Enable WSL GUI apps
       - LD_LIBRARY_PATH=/usr/lib/wsl/lib:$LD_LIBRARY_PATH  # WSL libs in path
+      - OGRE_RENDERER=OpenGL 3+ Rendering Subsystem  # Force Ogre OpenGL 3+
+      - __GL_YIELD=NOTHING                    # Disable GL thread yielding
+      - MESA_GL_VERSION_OVERRIDE=4.6          # Use latest GL version
+      - MESA_GLSL_VERSION_OVERRIDE=460        # Use latest GLSL version
+      - MESA_SHADER_CACHE_DIR=/tmp/mesa       # Shader cache for faster loads
+      - vblank_mode=0                         # Disable vsync completely
     network_mode: host
     command: /bin/bash -il ./bringup/sim.sh
     restart: no
