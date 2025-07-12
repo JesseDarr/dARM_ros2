@@ -55,17 +55,18 @@
 
             <!-- 3D scene -->
             <plugin filename="MinimalScene" name="3D View">
-            <gz-gui>
-                <title>3D View</title>
-                <property type="bool" key="showTitleBar">false</property>
-                <property type="string" key="state">docked</property>
-            </gz-gui>
+                <gz-gui>
+                    <title>3D View</title>
+                    <property type="bool" key="showTitleBar">false</property>
+                    <property type="string" key="state">docked</property>
+                </gz-gui>
 
-            <engine>ogre2</engine>
-            <scene>scene</scene>
-            <ambient_light>0.4 0.4 0.4</ambient_light>
-            <background_color>0.8 0.8 0.8</background_color>
-            <camera_pose>-1 0 0.75 0 0.33 0</camera_pose>
+                <engine>ogre2</engine>
+                <scene>scene</scene>
+                <ambient_light>0.4 0.4 0.4</ambient_light>
+                <background_color>0.8 0.8 0.8</background_color>
+                <camera_pose>-1 0 0.75 0 0.33 0</camera_pose>
+                <anti_aliasing>4</anti_aliasing> 
             </plugin>
 
             <!-- Plugins that add functionality to the scene -->

@@ -1,0 +1,10 @@
+services:
+  robot:
+    image: ghcr.io/jessedarr/darm_ros2:robot-latest
+    container_name: darm_robot
+    privileged: true                      # /dev/* for CAN-HAT, BT, etc. 
+    network_mode: host
+    volumes:
+      - /dev:/dev
+    command: /bin/bash -il ./bringup/robot.sh   # interactive & login
+    restart: no
