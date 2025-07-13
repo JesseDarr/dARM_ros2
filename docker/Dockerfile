@@ -48,6 +48,7 @@ RUN apt-get install -y ros-${ROS_DISTRO}-robot-state-publisher
 RUN apt-get install -y ros-${ROS_DISTRO}-ros2-control
 RUN apt-get install -y ros-${ROS_DISTRO}-ros2-controllers
 RUN apt-get install -y ros-${ROS_DISTRO}-controller-manager
+RUN apt-get install -y ros-${ROS_DISTRO}-can-msgs
 RUN apt-get install -y python3-colcon-common-extensions
 RUN apt-get install -y python3-vcstool
 
