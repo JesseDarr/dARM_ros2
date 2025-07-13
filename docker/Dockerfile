@@ -23,8 +23,7 @@ RUN apt-get install -y --no-install-recommends \
         tzdata \
         git \
         build-essential \
-        python3-pip \
-        python3-vcstool
+        python3-pip
 
 # Clean APT cache
 RUN rm -rf /var/lib/apt/lists/*
@@ -50,6 +49,7 @@ RUN apt-get install -y ros-${ROS_DISTRO}-ros2-control
 RUN apt-get install -y ros-${ROS_DISTRO}-ros2-controllers
 RUN apt-get install -y ros-${ROS_DISTRO}-controller-manager
 RUN apt-get install -y python3-colcon-common-extensions
+RUN apt-get install -y python3-vcstool
 
 ##################### Flavor Specific ######################################## 
 # sim
