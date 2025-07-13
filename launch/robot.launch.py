@@ -19,9 +19,9 @@ def generate_launch_description():
         parameters = [{'robot_description': robot_description}]
     )
 
-    jsp_gui_node = Node(
-        package    = 'joint_state_publisher_gui',
-        executable = 'joint_state_publisher_gui',
+    jsp_node = Node(
+        package    = 'joint_state_publisher',
+        executable = 'joint_state_publisher',
         output     = 'screen'
     )
 
@@ -33,4 +33,4 @@ def generate_launch_description():
         emulate_tty = True
     )
 
-    return LaunchDescription([rsp_node, jsp_gui_node, rviz_node])
+    return LaunchDescription([rsp_node, jsp_node, rviz_node])
