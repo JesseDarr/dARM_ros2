@@ -74,16 +74,19 @@ RUN mkdir -p /ros_ws/src
 WORKDIR /ros_ws/src/dARM_ros2
 COPY . .
 
-# Make bringup scripts executable
+# Make scripts executable
 RUN chmod +x bringup/*.sh
 
-# Build dARM_ros2 package and add setup.bash to bash.bashrc 
+# Import external dependencies
+WORKDIR /ros_ws/src
+RUN vcs import . < dARM_ros2/dependencies.repos
+
+# Build everything
 WORKDIR /ros_ws
-RUN vcs import . < dARM_ros2/dependencies.repos 
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && \
                   colcon build --symlink-install && \
                   echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> /etc/bash.bashrc && \
-                  echo 'source /ros_ws/install/setup.bash'        >> /etc/bash.bashrc"
+                  echo 'source /ros_ws/install/setup.bash' >> /etc/bash.bashrc"
 
 ##################### Runtime ################################################
 # Set XDG_RUNTIME_DIR to avoid warnings
