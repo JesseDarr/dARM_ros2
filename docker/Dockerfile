@@ -23,7 +23,8 @@ RUN apt-get install -y --no-install-recommends \
         tzdata \
         git \
         build-essential \
-        python3-pip
+        python3-pip \
+        python3-vcstool
 
 # Clean APT cache
 RUN rm -rf /var/lib/apt/lists/*
