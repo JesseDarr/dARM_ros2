@@ -64,7 +64,8 @@ RUN if [ "$FLAVOR" = "sim" ]; then \
 RUN if [ "$FLAVOR" = "robot" ]; then \
         apt-get update && \
         apt-get install -y can-utils && \
-        apt-get install -y bluez ; \
+        apt-get install -y python3-can && \
+        rm -rf /var/lib/apt/lists/* ; \
     fi
 
 ##################### Build ##################################################
@@ -78,6 +79,7 @@ RUN chmod +x bringup/*.sh
 
 # Build dARM_ros2 package and add setup.bash to bash.bashrc 
 WORKDIR /ros_ws
+RUN vcs import . < dARM_ros2/dependencies.repos 
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && \
                   colcon build --symlink-install && \
                   echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> /etc/bash.bashrc && \
@@ -87,9 +89,6 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && \
 # Set XDG_RUNTIME_DIR to avoid warnings
 ENV XDG_RUNTIME_DIR=/tmp/runtime-${USER}
 RUN mkdir -p ${XDG_RUNTIME_DIR} && chmod 700 ${XDG_RUNTIME_DIR}
-
-# Disable bash job control: prevents warnings that it can't start
-RUN echo "set +m" >> /etc/bash.bashrc
 
 # Final workdir & default shell
 WORKDIR /ros_ws/src/dARM_ros2
