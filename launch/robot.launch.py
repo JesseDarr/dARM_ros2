@@ -2,6 +2,8 @@
 import os
 import xacro
 from launch import LaunchDescription
+from launch.actions import RegisterEventHandler
+from launch.event_handlers import OnProcessExit
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 
@@ -9,15 +11,25 @@ def generate_launch_description():
 
     # Convience variables
     pkg_name   = 'darm_ros2'
-    xacro_file = os.path.join(get_package_share_directory(pkg_name), 'description', 'darm.urdf.xacro')
-    robot_desc = xacro.process_file(xacro_file).toxml()
+    rviz_path  = os.path.join(get_package_share_directory(pkg_name), 'rviz', 'darm.rviz')
+    xacro_file = os.path.join(get_package_share_directory(pkg_name), 'description', 'darm.urdf.xacro')    
+    robot_desc = xacro.process_file(xacro_file, mappings={'sim': 'false'}).toxml()
+
 
     # Robot State Publisher
     robot_state_publisher = Node(
         package    = 'robot_state_publisher',
         executable = 'robot_state_publisher',
         output     = 'screen',
-        parameters = [{'robot_description': robot_desc}]
+        parameters = [{'robot_description':  robot_desc}, {'publish_robot_description': True}, {'use_sim_time': False}]
+    )
+
+    # Controller Manager
+    controller_manager = Node(
+        package    = 'controller_manager',
+        executable = 'ros2_control_node',
+        parameters = [robot_desc, os.path.join(get_package_share_directory(pkg_name), 'config', 'ros2_control_controllers.yaml')],
+        output     = 'screen'
     )
 
     # Ros2_Control - Controllers
@@ -38,7 +50,7 @@ def generate_launch_description():
         name       = 'joy_node',
         output     = 'screen',
         parameters = [{
-            'device': '/dev/input/event0',
+            'device': '/dev/input/js0',
             'deadzone': 0.05,
             'autorepeat_rate': 30.0
         }]
@@ -59,8 +71,18 @@ def generate_launch_description():
 
     # Run the nodes
     return LaunchDescription([
-        robot_state_publisher, 
+        robot_state_publisher,
+        controller_manager,
+
+        # Joystick + Teleop
         joy,
         teleop,
-        spawner_nodes
+
+        # ROS 2 Control
+        RegisterEventHandler(
+            OnProcessExit(
+                target_action=controller_manager,
+                on_exit=[*spawner_nodes]
+            )
+        ),
     ])
