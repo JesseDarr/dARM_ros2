@@ -67,6 +67,7 @@ RUN if [ "$FLAVOR" = "robot" ]; then \
         apt-get update && \
         apt-get install -y can-utils && \
         apt-get install -y python3-can && \
+        apt-get install -y joystick && \
         rm -rf /var/lib/apt/lists/* ; \
     fi
 
