@@ -50,7 +50,6 @@ RUN apt-get install -y ros-${ROS_DISTRO}-ros2-controllers
 RUN apt-get install -y ros-${ROS_DISTRO}-controller-manager
 RUN apt-get install -y ros-${ROS_DISTRO}-can-msgs
 RUN apt-get install -y python3-colcon-common-extensions
-RUN apt-get install -y python3-vcstool
 
 ##################### Flavor Specific ######################################## 
 # sim
@@ -74,17 +73,21 @@ RUN if [ "$FLAVOR" = "robot" ]; then \
     fi
 
 ##################### Build ##################################################
-# Create workspace, set workdir, and copy files into image
+# Create workspace
 RUN mkdir -p /ros_ws/src
+
+# Clone dependencies directly
+RUN if [ "$FLAVOR" = "robot" ]; then \
+        cd /ros_ws/src && \
+        git clone https://github.com/odriverobotics/ros_odrive.git && \
+    fi
+
+# Set workdir and copy files into image
 WORKDIR /ros_ws/src/dARM_ros2
 COPY . .
 
 # Make scripts executable
 RUN chmod +x bringup/*.sh
-
-# Import external dependencies
-WORKDIR /ros_ws/src
-RUN vcs import . < dARM_ros2/dependencies.repos
 
 # Build everything
 WORKDIR /ros_ws
