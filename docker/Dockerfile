@@ -10,7 +10,7 @@ ENV ROS_DISTRO=jazzy
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Abort on non 0 return code 
-RUN set -e 
+RUN set -e
 
 # Install Basics
 RUN apt-get update
