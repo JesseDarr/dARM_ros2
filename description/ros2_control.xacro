@@ -10,17 +10,7 @@
 
             <xacro:unless value="$(arg sim)">
                 <plugin>odrive_ros2_control_plugin/ODriveHardwareInterface</plugin>
-                <param name="can_interface">can0</param>
-                <param name="can_bitrate">1000000</param>
-                <param name="control_mode">position</param> 
-                <param name="input_mode">trap_traj</param>
-                <param name="watchdog_timeout">0.5</param>
-                <param name="enable_watchdog">true</param>
-                <param name="heartbeat_rate_ms">100</param>
-                <param name="encoder_rate_ms">10</param>
-                <param name="enforce_limits">true</param>                
-                <param name="auto_calibrate_on_startup">false</param>
-                <param name="clear_errors_on_startup">true</param>
+                <param name="can">can0</param>
             </xacro:unless>
         </hardware>
 
