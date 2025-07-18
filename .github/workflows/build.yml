@@ -12,7 +12,7 @@ on:
 
 jobs:
   build_sim:
-    name: Build sim x86
+    name: Build sim
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -47,7 +47,7 @@ jobs:
             ghcr.io/jessedarr/darm_ros2:${{ github.sha }}-sim
 
   build_robot:
-    name: Build robot arm64
+    name: Build robot
     runs-on: ubuntu-latest
     #runs-on: [self-hosted, ubuntu, ARM64]
     permissions:
