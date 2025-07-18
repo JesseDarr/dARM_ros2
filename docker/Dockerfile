@@ -93,7 +93,7 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && \
                   echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> /etc/bash.bashrc && \
                   echo 'source /ros_ws/install/setup.bash' >> /etc/bash.bashrc"
 
-##################### Runtime ################################################
+##################### Runtime ################################################ 
 # Set XDG_RUNTIME_DIR to avoid warnings
 ENV XDG_RUNTIME_DIR=/tmp/runtime-${USER}
 RUN mkdir -p ${XDG_RUNTIME_DIR} && chmod 700 ${XDG_RUNTIME_DIR}
