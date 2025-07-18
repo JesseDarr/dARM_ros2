@@ -7,10 +7,6 @@ from launch.event_handlers import OnProcessExit
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 
-# debug logging
-import logging
-logging.root.setLevel(logging.DEBUG)
-
 def generate_launch_description():
 
     # Convience variables
