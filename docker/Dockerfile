@@ -79,7 +79,7 @@ RUN mkdir -p /ros_ws/src
 # Clone dependencies directly
 RUN if [ "$FLAVOR" = "robot" ]; then \
         cd /ros_ws/src && \
-        git clone https://github.com/odriverobotics/ros_odrive.git \
+        git clone https://github.com/odriverobotics/ros_odrive.git ; \
     fi
 
 # Set workdir and copy files into image
