@@ -11,8 +11,8 @@ def generate_launch_description():
 
     # Convience variables
     pkg_name   = 'darm_ros2'
-    rviz_path  = os.path.join(get_package_share_directory(pkg_name), 'rviz', 'darm.rviz')
-    xacro_file = os.path.join(get_package_share_directory(pkg_name), 'description', 'darm.urdf.xacro')    
+    xacro_file = os.path.join(get_package_share_directory(pkg_name), 'description', 'darm.urdf.xacro')  
+    ctrls_file = os.path.join(get_package_share_directory(pkg_name), 'config', 'ros2_control_controllers.yaml')  
     robot_desc = xacro.process_file(xacro_file, mappings={'sim': 'false'}).toxml()
 
 
@@ -28,7 +28,7 @@ def generate_launch_description():
     controller_manager = Node(
         package    = 'controller_manager',
         executable = 'ros2_control_node',
-        parameters = [robot_desc, os.path.join(get_package_share_directory(pkg_name), 'config', 'ros2_control_controllers.yaml')],
+        parameters = [{'robot_description': robot_desc}, ctrls_file],
         output     = 'screen'
     )
 

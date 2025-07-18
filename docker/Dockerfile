@@ -68,6 +68,8 @@ RUN if [ "$FLAVOR" = "robot" ]; then \
         apt-get install -y can-utils && \
         apt-get install -y python3-can && \
         apt-get install -y joystick && \
+        apt-get install -y ros-${ROS_DISTRO}-hardware-interface && \
+        apt-get install -y ros-${ROS_DISTRO}-pluginlib ; \
         rm -rf /var/lib/apt/lists/* ; \
     fi
 
