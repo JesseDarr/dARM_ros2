@@ -10,7 +10,7 @@ ENV ROS_DISTRO=jazzy
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Abort on non 0 return code 
-RUN set -e 
+RUN set -e
 
 # Install Basics
 RUN apt-get update
@@ -48,6 +48,7 @@ RUN apt-get install -y ros-${ROS_DISTRO}-robot-state-publisher
 RUN apt-get install -y ros-${ROS_DISTRO}-ros2-control
 RUN apt-get install -y ros-${ROS_DISTRO}-ros2-controllers
 RUN apt-get install -y ros-${ROS_DISTRO}-controller-manager
+RUN apt-get install -y ros-${ROS_DISTRO}-can-msgs
 RUN apt-get install -y python3-colcon-common-extensions
 
 ##################### Flavor Specific ######################################## 
@@ -64,32 +65,41 @@ RUN if [ "$FLAVOR" = "sim" ]; then \
 RUN if [ "$FLAVOR" = "robot" ]; then \
         apt-get update && \
         apt-get install -y can-utils && \
-        apt-get install -y bluez ; \
+        apt-get install -y python3-can && \
+        apt-get install -y joystick && \
+        apt-get install -y ros-${ROS_DISTRO}-hardware-interface && \
+        apt-get install -y ros-${ROS_DISTRO}-pluginlib ; \
+        rm -rf /var/lib/apt/lists/* ; \
     fi
 
 ##################### Build ##################################################
-# Create workspace, set workdir, and copy files into image
+# Create workspace
 RUN mkdir -p /ros_ws/src
+
+# Clone dependencies directly
+RUN if [ "$FLAVOR" = "robot" ]; then \
+        cd /ros_ws/src && \
+        git clone https://github.com/odriverobotics/ros_odrive.git ; \
+    fi
+
+# Set workdir and copy files into image
 WORKDIR /ros_ws/src/dARM_ros2
 COPY . .
 
-# Make bringup scripts executable
+# Make scripts executable
 RUN chmod +x bringup/*.sh
 
-# Build dARM_ros2 package and add setup.bash to bash.bashrc 
+# Build everything
 WORKDIR /ros_ws
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && \
                   colcon build --symlink-install && \
                   echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> /etc/bash.bashrc && \
-                  echo 'source /ros_ws/install/setup.bash'        >> /etc/bash.bashrc"
+                  echo 'source /ros_ws/install/setup.bash' >> /etc/bash.bashrc"
 
-##################### Runtime ################################################
+##################### Runtime ################################################ 
 # Set XDG_RUNTIME_DIR to avoid warnings
 ENV XDG_RUNTIME_DIR=/tmp/runtime-${USER}
 RUN mkdir -p ${XDG_RUNTIME_DIR} && chmod 700 ${XDG_RUNTIME_DIR}
-
-# Disable bash job control: prevents warnings that it can't start
-RUN echo "set +m" >> /etc/bash.bashrc
 
 # Final workdir & default shell
 WORKDIR /ros_ws/src/dARM_ros2

@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <ros2_control name="darm_hardware" type="system">
-        <!-- Select GZ Sim or Odrive hardware interface based on 'sim' argument -->
+        <!-- Select GZ Sim or Odrive hardware interface based on 'sim' -->
         <hardware>
             <xacro:if value="$(arg sim)">
                 <plugin>gz_ros2_control/GazeboSimSystem</plugin>

@@ -9,7 +9,7 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
 
-    # Setup convience variables
+    # Convience variables
     pkg_name   = 'darm_ros2'
     sim_name   = 'ros_gz_sim'
     sim_path   = os.path.join(get_package_share_directory(sim_name), 'launch', 'gz_sim.launch.py')
@@ -60,7 +60,7 @@ def generate_launch_description():
         remappings = [('/world/basic/model/darm_ros2/joint_state', '/joint_states'),]
     )
 
-    # Ros2_Control - Other Nodes
+    # Ros2_Control - Controllers
     controller_names = ['joint_state_broadcaster', 'arm_controller', ]
     spawner_nodes    = [
         Node(
@@ -84,7 +84,7 @@ def generate_launch_description():
         }]
     )
 
-    # Teleop (remote operations)
+    # Teleop
     teleop = Node(
         package     = 'darm_ros2',
         executable  = 'teleop_ps5.py',
