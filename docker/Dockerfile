@@ -51,7 +51,7 @@ RUN apt-get install -y \
         ros-${ROS_DISTRO}-ros2-controllers \
         ros-${ROS_DISTRO}-controller-manager \
         ros-${ROS_DISTRO}-can-msgs \
-        python3-colcon-common-extensions
+        python3-colcon-common-extensions 
 
 ##################### Flavor Specific ######################################## 
 # sim
