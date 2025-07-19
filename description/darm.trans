@@ -7,6 +7,7 @@
         <actuator name="joint_1_actr">
             <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
             <mechanicalReduction>9.0</mechanicalReduction>
+            <param name="odrive_node_id">0</param>
         </actuator>
     </transmission>
 
@@ -16,10 +17,12 @@
         <actuator name="joint_2_left_actr">
             <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
             <mechanicalReduction>9.0</mechanicalReduction>
+            <param name="odrive_node_id">1</param>
         </actuator>
         <actuator name="joint_2_right_actr">
             <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
             <mechanicalReduction>-9.0</mechanicalReduction>
+            <param name="odrive_node_id">2</param>
         </actuator>
     </transmission>
 
@@ -29,6 +32,7 @@
         <actuator name="joint_3_actr">
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>9.0</mechanicalReduction>
+            <param name="odrive_node_id">3</param>
         </actuator>
     </transmission>
 
@@ -38,6 +42,7 @@
         <actuator name="forearm_actr">
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>9.0</mechanicalReduction>
+            <param name="odrive_node_id">4</param>
         </actuator>
     </transmission>
 
@@ -48,6 +53,7 @@
         <actuator name="diff_left_actr">
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>12.96</mechanicalReduction>
+            <param name="odrive_node_id">5</param>
         </actuator>
     </transmission>
 
@@ -57,6 +63,7 @@
         <actuator name="diff_right_actr">
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>-12.96</mechanicalReduction>
+            <param name="odrive_node_id">6</param>
         </actuator>
     </transmission>
 
@@ -67,6 +74,7 @@
         <actuator name="diff_left_actr">
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>12.96</mechanicalReduction>
+            <param name="odrive_node_id">5</param>
         </actuator>
     </transmission>
 
@@ -76,6 +84,7 @@
         <actuator name="diff_right_actr">
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>12.96</mechanicalReduction>
+            <param name="odrive_node_id">6</param>
         </actuator>
     </transmission>
 
@@ -86,6 +95,7 @@
         <actuator name="finger_actr">
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>178.6</mechanicalReduction>
+            <param name="odrive_node_id">7</param>
         </actuator>
     </transmission>
 
@@ -95,6 +105,7 @@
         <actuator name="finger_actr">
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>-178.6</mechanicalReduction>
+            <param name="odrive_node_id">7</param>
         </actuator>
     </transmission>
 
