@@ -1,28 +1,42 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <ros2_control name="darm_hardware" type="system">
-        <!-- Select GZ Sim or Odrive hardware interface based on 'sim' -->
-        <hardware>
-            <xacro:if value="$(arg sim)">
-                <plugin>gz_ros2_control/GazeboSimSystem</plugin>
-            </xacro:if>
+  <!-- ===========================================================
+       1.  GAZEBO  (mechanical joints only, mock hardware)
+       =========================================================== -->
+  <xacro:if value="$(arg sim)">
+    <ros2_control name="darm_sim" type="system">
+      <hardware>
+        <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+      </hardware>
 
-            <xacro:unless value="$(arg sim)">
-                <plugin>odrive_ros2_control_plugin/ODriveHardwareInterface</plugin>
-                <param name="can">can0</param>
-            </xacro:unless>
-        </hardware>
-
-        <joint name="link_1_joint">         <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
-        <joint name="link_2_joint">         <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
-        <joint name="link_3_joint">         <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
-        <joint name="forearm_joint">        <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
-        <joint name="differential_joint">   <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
-        <joint name="gripper_joint">        <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
-        <joint name="finger_1_joint">       <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
-        <joint name="finger_2_joint">       <command_interface name="position"/><state_interface name="velocity"/><state_interface name="position"/>    </joint>
-
+      <joint name="link_1_joint">       <command_interface name="position"/> <state_interface name="position"/> <state_interface name="velocity"/></joint>
+      <joint name="link_2_joint">       <command_interface name="position"/> <state_interface name="position"/> <state_interface name="velocity"/></joint>
+      <joint name="link_3_joint">       <command_interface name="position"/> <state_interface name="position"/> <state_interface name="velocity"/></joint>
+      <joint name="forearm_joint">      <command_interface name="position"/> <state_interface name="position"/> <state_interface name="velocity"/></joint>
+      <joint name="differential_joint"> <command_interface name="position"/> <state_interface name="position"/> <state_interface name="velocity"/></joint>
+      <joint name="gripper_joint">      <command_interface name="position"/> <state_interface name="position"/> <state_interface name="velocity"/></joint>
+      <joint name="finger_1_joint">     <command_interface name="position"/> <state_interface name="position"/> <state_interface name="velocity"/></joint>
+      <joint name="finger_2_joint">     <command_interface name="position"/> <state_interface name="position"/> <state_interface name="velocity"/></joint>
     </ros2_control>
+  </xacro:if>
+
+  <xacro:unless value="$(arg sim)">
+    <ros2_control name="darm_hardware" type="system">
+      <hardware>
+        <plugin>odrive_ros2_control_plugin/ODriveHardwareInterface</plugin>
+        <param name="can">can0</param>
+      </hardware>
+
+      <joint name="joint_1_actr">       <command_interface name="position"/> <state_interface name="position"/> <state_interface name="velocity"/> <param name="node_id">1</param></joint>
+      <joint name="joint_2_left_actr">  <command_interface name="position"/> <state_interface name="position"/> <state_interface name="velocity"/> <param name="node_id">2</param></joint>
+      <joint name="joint_2_right_actr"> <command_interface name="position"/> <state_interface name="position"/> <state_interface name="velocity"/> <param name="node_id">3</param></joint>
+      <joint name="joint_3_actr">       <command_interface name="position"/> <state_interface name="position"/> <state_interface name="velocity"/> <param name="node_id">4</param></joint>
+      <joint name="forearm_actr">       <command_interface name="position"/> <state_interface name="position"/> <state_interface name="velocity"/> <param name="node_id">5</param></joint>
+      <joint name="diff_left_actr">     <command_interface name="position"/> <state_interface name="position"/> <state_interface name="velocity"/> <param name="node_id">6</param></joint>
+      <joint name="diff_right_actr">    <command_interface name="position"/> <state_interface name="position"/> <state_interface name="velocity"/> <param name="node_id">7</param></joint>
+      <joint name="finger_actr">        <command_interface name="position"/> <state_interface name="position"/> <state_interface name="velocity"/> <param name="node_id">8</param></joint>
+    </ros2_control>
+  </xacro:unless>
 
 </robot>
