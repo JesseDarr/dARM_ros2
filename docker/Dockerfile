@@ -23,7 +23,8 @@ RUN apt-get install -y --no-install-recommends \
         tzdata \
         git \
         build-essential \
-        python3-pip
+        python3-pip \
+        joystick
 
 # Clean APT cache
 RUN rm -rf /var/lib/apt/lists/*
@@ -66,7 +67,6 @@ RUN if [ "$FLAVOR" = "robot" ]; then \
         apt-get update && \
         apt-get install -y can-utils && \
         apt-get install -y python3-can && \
-        apt-get install -y joystick && \
         apt-get install -y ros-${ROS_DISTRO}-hardware-interface && \
         apt-get install -y ros-${ROS_DISTRO}-pluginlib ; \
         rm -rf /var/lib/apt/lists/* ; \
