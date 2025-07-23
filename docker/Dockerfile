@@ -23,7 +23,8 @@ RUN apt-get install -y --no-install-recommends \
         tzdata \
         git \
         build-essential \
-        python3-pip
+        python3-pip \
+        joystick
 
 # Clean APT cache
 RUN rm -rf /var/lib/apt/lists/*
@@ -41,15 +42,16 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/r
 
 # Install ROS2 full desktop version (includes rviz, xacro, etc)
 RUN apt-get update
-RUN apt-get install -y ros-${ROS_DISTRO}-desktop
-RUN apt-get install -y ros-${ROS_DISTRO}-xacro
-RUN apt-get install -y ros-${ROS_DISTRO}-joint-state-publisher-gui
-RUN apt-get install -y ros-${ROS_DISTRO}-robot-state-publisher
-RUN apt-get install -y ros-${ROS_DISTRO}-ros2-control
-RUN apt-get install -y ros-${ROS_DISTRO}-ros2-controllers
-RUN apt-get install -y ros-${ROS_DISTRO}-controller-manager
-RUN apt-get install -y ros-${ROS_DISTRO}-can-msgs
-RUN apt-get install -y python3-colcon-common-extensions
+RUN apt-get install -y \
+        ros-${ROS_DISTRO}-desktop \
+        ros-${ROS_DISTRO}-xacro \
+        ros-${ROS_DISTRO}-joint-state-publisher-gui \
+        ros-${ROS_DISTRO}-robot-state-publisher \
+        ros-${ROS_DISTRO}-ros2-control \
+        ros-${ROS_DISTRO}-ros2-controllers \
+        ros-${ROS_DISTRO}-controller-manager \
+        ros-${ROS_DISTRO}-can-msgs \
+        python3-colcon-common-extensions 
 
 ##################### Flavor Specific ######################################## 
 # sim
@@ -66,7 +68,6 @@ RUN if [ "$FLAVOR" = "robot" ]; then \
         apt-get update && \
         apt-get install -y can-utils && \
         apt-get install -y python3-can && \
-        apt-get install -y joystick && \
         apt-get install -y ros-${ROS_DISTRO}-hardware-interface && \
         apt-get install -y ros-${ROS_DISTRO}-pluginlib ; \
         rm -rf /var/lib/apt/lists/* ; \

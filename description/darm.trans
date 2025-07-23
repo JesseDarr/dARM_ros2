@@ -25,18 +25,18 @@
 
     <transmission name="joint_3_tran">
         <type>transmission_interface/SimpleTransmission</type>
-        <joint name="link_3_joint">         <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>      </joint>
+        <joint name="link_3_joint">         <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>      </joint>
         <actuator name="joint_3_actr">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
             <mechanicalReduction>9.0</mechanicalReduction>
         </actuator>
     </transmission>
 
     <transmission name="forearm_tran">
         <type>transmission_interface/SimpleTransmission</type>
-        <joint name="forearm_joint">        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>      </joint>
+        <joint name="forearm_joint">        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>      </joint>
         <actuator name="forearm_actr">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
             <mechanicalReduction>9.0</mechanicalReduction>
         </actuator>
     </transmission>
@@ -44,18 +44,18 @@
     <!-- Bending (differential_joint): motors oppose -->
     <transmission name="diff_left_bend">
         <type>transmission_interface/SimpleTransmission</type>
-        <joint name="differential_joint">   <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>      </joint>
+        <joint name="differential_joint">   <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>      </joint>
         <actuator name="diff_left_actr">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
             <mechanicalReduction>12.96</mechanicalReduction>
         </actuator>
     </transmission>
 
     <transmission name="diff_right_bend">
         <type>transmission_interface/SimpleTransmission</type>
-        <joint name="differential_joint">   <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>      </joint>
+        <joint name="differential_joint">   <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>      </joint>
         <actuator name="diff_right_actr">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
             <mechanicalReduction>-12.96</mechanicalReduction>
         </actuator>
     </transmission>
@@ -63,18 +63,18 @@
     <!-- Twist (gripper_joint): motors together -->
     <transmission name="diff_left_twist">
         <type>transmission_interface/SimpleTransmission</type>
-        <joint name="gripper_joint">        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>      </joint>
+        <joint name="gripper_joint">        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>      </joint>
         <actuator name="diff_left_actr">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
             <mechanicalReduction>12.96</mechanicalReduction>
         </actuator>
     </transmission>
 
     <transmission name="diff_right_twist">
         <type>transmission_interface/SimpleTransmission</type>
-        <joint name="gripper_joint">        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>      </joint>
+        <joint name="gripper_joint">        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>      </joint>
         <actuator name="diff_right_actr">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
             <mechanicalReduction>12.96</mechanicalReduction>
         </actuator>
     </transmission>
@@ -82,18 +82,18 @@
     <!-- FINGERS -->
     <transmission name="finger_master_tran">
         <type>transmission_interface/SimpleTransmission</type>
-        <joint name="finger_1_joint">       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>      </joint>
+        <joint name="finger_1_joint">       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>      </joint>
         <actuator name="finger_actr">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
             <mechanicalReduction>178.6</mechanicalReduction>
         </actuator>
     </transmission>
 
     <transmission name="finger_mirror_tran">
         <type>transmission_interface/SimpleTransmission</type>
-        <joint name="finger_2_joint">       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>      </joint>
+        <joint name="finger_2_joint">       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>      </joint>
         <actuator name="finger_actr">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
             <mechanicalReduction>-178.6</mechanicalReduction>
         </actuator>
     </transmission>
